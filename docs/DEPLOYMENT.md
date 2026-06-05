@@ -45,6 +45,18 @@ Click **New repository secret** for each:
 | `GCP_SERVICE_ACCOUNT` | `github-actions-deployer@valneetrivial.iam.gserviceaccount.com` |
 | `GCP_WORKLOAD_IDENTITY_PROVIDER` | `projects/4092394746/locations/global/workloadIdentityPools/github-pool/providers/github-provider` |
 | `APP_KEY` | Output of `php artisan key:generate --show` (see below) |
+| `APP_URL` | *(optional)* `https://laravelmix.valnee.com` — public custom domain; defaults to this if unset |
+
+Deploy sets `APP_URL` on every push (no longer overwritten with the `.run.app` URL).
+
+### Custom domain
+
+| Setting | Value |
+|---|---|
+| Public URL | `https://laravelmix.valnee.com` |
+| DNS | CNAME `laravelmix` → `ghs.googlehosted.com` |
+
+After the domain mapping is **Active**, add optional secret `APP_URL=https://laravelmix.valnee.com` (or rely on the workflow default).
 
 ### Generate APP_KEY
 
