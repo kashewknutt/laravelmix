@@ -1,37 +1,44 @@
 {
-  "name": "tabularasa",
-  "version": "2.0.0",
-  "description": "A simplest TailwindCss boilerplate theme - see git+https://github.com/cjkpl/oc-tabularas-theme",
-  "main": "app.js",
-  "scripts": {
-    "dev": "npm run development",
-    "development": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-    "watch": "npm run development -- --watch",
-    "hot": "cross-env NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
-    "prod": "npm run production",
-    "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
-  },
-  "author": "'CJK.PL'",
-  "license": "MIT",
-  "devDependencies": {
-    "@babel/core": "^7.12.3",
-    "autoprefixer": "^9.8.6",
-    "browser-sync": "^2.26.13",
-    "browser-sync-webpack-plugin": "^2.2.2",
-    "laravel-mix": "^5.0.9",
-    "laravel-mix-purgecss": "^5.0.0",
-    "postcss": "^7.0.35",
-    "postcss-import": "^12.0.1",
-    "postcss-nested": "^4.2.1",
-    "resolve-url-loader": "^3.1.2",
-    "vue-template-compiler": "^2.6.12"
-  },
-  "dependencies": {
-    "@tailwindcss/typography": "^0.3.1",
-    "alpinejs": "^2.8.2",
-    "cross-env": "^7.0.2",
-    "fontsource-poppins": "^3.0.10",
-    "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.0.1",
-    "vue": "^2.6.12"
-  }
+    "name": "octobercms",
+    "homepage": "https://octobercms.com/",
+    "description": "October CMS is a self-hosted CMS platform based on the Laravel PHP Framework.",
+    "scripts": {
+        "dev": "npm run development",
+        "development": "mix",
+        "watch": "mix watch",
+        "watch-poll": "mix watch -- --watch-options-poll=1000",
+        "hot": "mix watch --hot",
+        "prod": "npm run production",
+        "production": "mix --production",
+        "build": "npm run production"
+    },
+    "devDependencies": {
+        "babel-plugin-module-resolver": "^4.1.0",
+        "laravel-mix": "^6.0.39",
+        "less": "^4.1.2",
+        "less-loader": "^10.2.0",
+        "sass": "^1.45.0",
+        "sass-loader": "^12.1.0"
+    },
+    "dependencies": {
+        "@phosphor-icons/web": "^2.1.2",
+        "@popperjs/core": "^2.11.7",
+        "bluebird": "^3.7.2",
+        "bootstrap": "^5.3.3",
+        "bootstrap-icons": "^1.10",
+        "chart.js": "^4.3.2",
+        "chartjs-adapter-moment": "^1.0.1",
+        "dropzone": "^6.0.0-beta.2",
+        "emmet-monaco-es": "^5.3",
+        "jquery": "^3.6.0",
+        "js-cookie": "^3.0.1",
+        "moment": "^2.30.1",
+        "moment-timezone": "^0.5.46",
+        "monaco-editor": "^0.46.0",
+        "monaco-yaml": "^5.1.1",
+        "popper.js": "^1.16.1",
+        "sortablejs": "^1.15.0",
+        "vue": "^2.6.14",
+        "vue-router": "^3.5.3"
+    }
 }

@@ -1,11 +1,45 @@
-# Ignore node depenencies
-node_modules/
-
-# Other ignores
+# October CMS
+composer.phar
 .DS_Store
-package-lock.json
+.vite
+.claude
+.idea
+.env
+.env.*.php
+.env.php
+auth.json
+php_errors.log
+nginx-error.log
+nginx-access.log
+nginx-ssl.access.log
+nginx-ssl.error.log
+php-errors.log
+sftp-config.json
+.ftpconfig
+.vscode/
+selenium.php
+composer.lock
+.phpunit.result.cache
+nbproject
+.phpstorm.meta.php
+/bootstrap/compiled.php
+/vendor
+/vendor_drm
 
-# Ignore everything in the "assets/dist/" directory, except "images" folder
-!assets/dist/
-assets/dist/*
-!assets/dist/images/
+# Node
+node_modules/
+package-lock.json
+/modules/system/node_modules
+
+# Theme build (keep compiled dist, ignore node_modules)
+themes/laravelmix/node_modules/
+themes/laravelmix/package-lock.json
+
+# Ignore compiled assets except images
+!themes/laravelmix/assets/dist/
+themes/laravelmix/assets/dist/*
+!themes/laravelmix/assets/dist/images/
+
+# Temp / backup
+.tmp-theme-backup/
+october/

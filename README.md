@@ -1,175 +1,174 @@
-# TabulaRasa Theme
+# laravelmix — October CMS on GCP
 
-A minimal boilerplate theme for [October CMS](https://octobercms.com/) built on **Twig templating**, **Tailwind CSS**, **Alpine.js**, and **Laravel Mix**.
+Full-stack October CMS project with the **laravelmix** theme (Twig, Tailwind CSS, Alpine.js, Laravel Mix), deployed to **Google Cloud Run** via GitHub Actions.
 
-Based on the original [TabulaRasa theme](https://github.com/cjkpl/oc-tabularas-theme) by CJK.PL, adapted and maintained by **kashewknutt**.
+Maintained by **kashewknutt**. Theme based on [TabulaRasa](https://github.com/cjkpl/oc-tabularas-theme) by CJK.PL.
+
+## Project structure
+
+```
+├── app/                    # October CMS application
+├── config/                 # October CMS config
+├── themes/laravelmix/      # Custom theme (Twig + Tailwind + Alpine)
+│   ├── layouts/
+│   ├── pages/
+│   ├── partials/
+│   ├── assets/src/         # Source CSS/JS
+│   ├── assets/dist/        # Compiled assets (built by Mix)
+│   ├── webpack.mix.js
+│   └── package.json
+├── docker/                 # Container config (nginx, entrypoint)
+├── scripts/gcp-setup.sh    # One-time GCP infrastructure setup
+├── Dockerfile              # Production image for Cloud Run
+└── .github/workflows/      # CI/CD pipelines
+```
 
 ## Stack
 
-| Layer | Technology | Location |
-|---|---|---|
-| Templating | October CMS (Twig) | `layouts/`, `pages/`, `partials/` |
-| CSS | Tailwind CSS v2 | `assets/src/css/app.css`, `tailwind.config.js` |
-| JS | Alpine.js v2 | `assets/src/js/app.js` (bundled via Mix) |
-| Build | Laravel Mix / webpack | `webpack.mix.js` |
-
-## Features
-
-- Minimal setup — one layout, one page, no bloat
-- Custom color palette defined in `tailwind.config.js`
-- Alpine.js bundled through Laravel Mix (no CDN dependencies)
-- Hot-reload via BrowserSync during development
-- Self-hosted Poppins font via npm
-- October AJAX framework available via jQuery (optional — comment out `partials/site/scripts.htm` if unused)
-
-## Installation
-
-This is an October CMS theme. Place the theme folder in your October CMS installation:
-
-```
-themes/laravelmix/
-```
-
-The folder name must match the `setResourceRoot` path in `webpack.mix.js`.
-
-### 1. Install dependencies
-
-In the theme folder:
-
-```
-npm install
-```
-
-### 2. Build assets
-
-```
-npm run prod
-```
-
-### 3. Activate the theme
-
-Enable the theme in the October CMS backend under **Settings → Front-end theme**.
-
-## Development
-
-### Hot-reload
-
-Start your October CMS dev server (e.g. `php artisan serve` on port 8000), then run:
-
-```
-npm run watch
-```
-
-Open your site with hot-reload at **http://localhost:3000**.
-
-### Configuration
-
-If your October CMS URL differs from the default, update the proxy in `webpack.mix.js`:
-
-```
-proxy: 'http://127.0.0.1:8000/',
-```
-
-If you rename the theme folder, update the resource root accordingly:
-
-```
-mix
-  .setPublicPath('./')
-  .setResourceRoot('/themes/laravelmix')
-```
-
-### Key files
-
-| File | Purpose |
+| Layer | Technology |
 |---|---|
-| `layouts/default.htm` | Main layout |
-| `pages/index.htm` | Homepage |
-| `partials/site/` | Reusable template partials |
-| `assets/src/css/app.css` | Tailwind entry point |
-| `assets/src/js/app.js` | Alpine.js entry point |
-| `tailwind.config.js` | Tailwind theme config (colors, fonts) |
-| `webpack.mix.js` | Laravel Mix build config |
+| CMS | October CMS 4 (Twig templates) |
+| CSS | Tailwind CSS v2 |
+| JS | Alpine.js v2 (bundled via Laravel Mix) |
+| Build | Laravel Mix / webpack |
+| Deploy | Docker → GCP Cloud Run |
 
-## Alpine.js
+## Local development
 
-Alpine.js is bundled via Laravel Mix and loaded through `partials/site/scripts.htm`. Add Alpine directives directly in your Twig templates:
+### Requirements
 
-```html
-<div x-data="{ open: false }">
-  <button @click="open = !open">Toggle</button>
-  <p x-show="open">Hello from Alpine!</p>
-</div>
-```
+- PHP 8.2+
+- Composer
+- Node.js 20+
+- SQLite (default) or MySQL
 
-Alpine 2.x is used for compatibility with Laravel Mix 5. Do not activate Vue.js and Alpine.js at the same time unless Vue is scoped locally.
+### Setup
 
-## Theme Colors
+```bash
+# Install October CMS dependencies
+composer install
 
-The theme defines four custom color sets in `tailwind.config.js`: **primary**, **secondary**, **tertiary**, and **grey**, each with five variations (lightest, light, default, dark, darkest). Standard Tailwind `gray-100` through `gray-900` are also included.
+# Configure environment
+cp .env.example .env
+php artisan key:generate
 
-To use standard Tailwind colors instead, remove the custom `colors` section from `tailwind.config.js`.
+# Create SQLite database
+mkdir -p storage
+touch storage/database.sqlite
+php artisan october:migrate
 
-## Optional: Tailwind Typography
-
-The `@tailwindcss/typography` plugin provides `prose` classes for rich text content. It is included as a dependency but commented out in `tailwind.config.js` for compatibility. Uncomment the plugin to enable it:
-
-```html
-<article class="prose lg:prose-xl">
-  <h1>Your heading</h1>
-  <p>Your content...</p>
-</article>
-```
-
-Docs: https://github.com/tailwindlabs/tailwindcss-typography
-
-## Optional: Self-hosted Fonts
-
-Fonts can be added via npm. Poppins is included by default:
-
-```
-npm install fontsource-poppins
-```
-
-Import in `assets/src/css/app.css`:
-
-```
-@import "~fontsource-poppins/400.css";
-@import "~fontsource-poppins/500.css";
-@import "~fontsource-poppins/700.css";
-```
-
-See https://github.com/fontsource/fontsource for available fonts.
-
-## Production Build
-
-```
+# Build theme assets
+cd themes/laravelmix
+npm install
 npm run prod
+cd ../..
+
+# Run dev server
+php artisan serve
 ```
 
-Do not deploy `node_modules/` — it is only needed during development. Compiled assets live in `assets/dist/`.
+Visit **http://127.0.0.1:8000**. Backend: **http://127.0.0.1:8000/admin**.
+
+The active theme is set via `ACTIVE_THEME=laravelmix` in `.env`.
+
+### Theme hot-reload
+
+```bash
+# Terminal 1
+php artisan serve
+
+# Terminal 2
+cd themes/laravelmix && npm run watch
+```
+
+Open **http://localhost:3000** (BrowserSync proxies October).
+
+## GCP deployment (CI/CD)
+
+Deployment is fully automated via GitHub Actions on push to `main`.
+
+### One-time GCP setup
+
+```bash
+# Install gcloud CLI, authenticate, then:
+GITHUB_REPO=your-github-user/laravelmix ./scripts/gcp-setup.sh YOUR_PROJECT_ID us-central1
+```
+
+This creates:
+- Artifact Registry repository (`laravelmix`)
+- Service account for GitHub Actions
+- Workload Identity Federation (no long-lived keys)
+
+### GitHub secrets
+
+Add these in **Settings → Secrets and variables → Actions**:
+
+| Secret | Value |
+|---|---|
+| `GCP_PROJECT_ID` | Your GCP project ID |
+| `GCP_REGION` | e.g. `us-central1` |
+| `GCP_SERVICE_ACCOUNT` | `github-actions-deployer@PROJECT.iam.gserviceaccount.com` |
+| `GCP_WORKLOAD_IDENTITY_PROVIDER` | Output from setup script |
+| `APP_KEY` | Run `php artisan key:generate --show` locally and paste the value |
+
+### Deploy
+
+Push to `main` — GitHub Actions will:
+
+1. Build theme assets inside Docker
+2. Install PHP dependencies via Composer
+3. Push image to Artifact Registry
+4. Deploy to Cloud Run
+
+Manual deploy:
+
+```bash
+gcloud run deploy laravelmix-october \
+  --source . \
+  --region us-central1 \
+  --allow-unauthenticated \
+  --port 8080
+```
+
+### Production database
+
+The default Docker setup uses **SQLite** (fine for demos). Cloud Run storage is ephemeral — SQLite data resets on redeploy.
+
+For production, use **Cloud SQL (MySQL)**:
+
+1. Create a Cloud SQL instance
+2. Connect Cloud Run to Cloud SQL
+3. Set env vars on the Cloud Run service:
+
+```
+DB_CONNECTION=mysql
+DB_HOST=/cloudsql/PROJECT:REGION:INSTANCE
+DB_DATABASE=october
+DB_USERNAME=october
+DB_PASSWORD=your-password
+```
+
+Update the deploy workflow or set these in the GCP Console.
+
+## CI
+
+Pull requests and pushes to `main` run:
+
+- **build-theme** — `npm run prod` in `themes/laravelmix/`
+- **build-docker** — validates the Docker image builds
+
+## Theme development
+
+Edit templates in `themes/laravelmix/`. After CSS/JS changes:
+
+```bash
+cd themes/laravelmix
+npm run prod    # production build
+npm run watch   # development with hot-reload
+```
+
+Colors and fonts: `themes/laravelmix/tailwind.config.js`
 
 ## License
 
-MIT License — see [LICENSE.md](LICENSE.md).
-
-Original theme by [CJK.PL](https://cjk.pl). Adapted by **kashewknutt**.
-
-## Changelog
-
-### 2.1.0 — 2026-06-05 (kashewknutt)
-
-- Configured stack: Twig (October CMS) + Tailwind CSS + Alpine.js + Laravel Mix
-- Alpine.js bundled via npm and Laravel Mix (replaces CDN loading)
-- Theme resource root set to `/themes/laravelmix`
-- Added Alpine.js demo on homepage
-
-### 2.0.0 — 2020-11-28 (CJK.PL)
-
-- TailwindCSS upgraded to `postcss7-compat@^2.0.1`
-- Self-hosted fonts via fontsource npm packages
-
-### 1.0.2 — 2020-11-11 (CJK.PL)
-
-- Added Typography plugin support
-- Added Alpine.js CDN partial (since replaced)
-- Updated jQuery to 3.5.1
+MIT — see [LICENSE.md](LICENSE.md). Original TabulaRasa theme by [CJK.PL](https://cjk.pl). Adapted by **kashewknutt**.
