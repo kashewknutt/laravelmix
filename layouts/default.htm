@@ -1,0 +1,23 @@
+description = "Default layout"
+
+==
+<!doctype html>
+<html lang="en">
+    <head>
+        {% partial 'site/meta' %}
+    </head>
+    <body>
+        {# id='app' is used by Vue; if you  use vue, you can add that id to the div below (for global vue instance) #}
+        <div class="flex flex-col min-h-screen font-body">
+          {% partial 'site/header' %}
+          <main class="container flex-grow mx-auto">
+              {% page %}
+          </main>
+
+            {% partial 'site/footer' %}
+        </div>
+    {# scripts must be included AFTER the 'app' div, which may be used by Vue and disallow inline scipting #}
+    {% partial 'site/scripts' %}
+    {# partial 'site/scripts_alpine' #}
+    </body>
+</html>
