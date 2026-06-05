@@ -130,6 +130,10 @@ The old `asia-south1` Cloud Run service can be deleted from the GCP console when
 
 Cloud Run runs php-fpm as `www-data`. If `storage/` is owned by root, Laravel cannot create files under `storage/framework/cache/data/`. The entrypoint runs `chown -R www-data:www-data storage bootstrap/cache` after migrations. Redeploy with the latest `docker/entrypoint.sh`.
 
+### Styles/JS blocked — mixed content
+
+Cloud Run serves HTTPS but nginx→php-fpm is HTTP, so October generates `http://` asset URLs. Deploy sets `LINK_POLICY=secure` and `RELATIVE_LINKS=true`, and the app forces HTTPS in production. Redeploy after pulling the latest changes.
+
 ### Site loads but styles are missing
 
 Theme assets are built inside Docker. Ensure `npm run prod` succeeds in CI. Check the Docker build logs in GitHub Actions.

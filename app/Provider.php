@@ -25,5 +25,9 @@ class Provider extends AppBase
     public function boot()
     {
         parent::boot();
+
+        if (env('APP_ENV') === 'production') {
+            \Illuminate\Support\Facades\URL::forceScheme('https');
+        }
     }
 }
