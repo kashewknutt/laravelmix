@@ -46,7 +46,7 @@ Click **New repository secret** for each:
 
 ### Generate APP_KEY
 
-Requires PHP 8.2+ and Composer:
+Requires PHP 8.4+ and Composer:
 
 ```bash
 composer install

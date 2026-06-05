@@ -8,7 +8,13 @@ COPY themes/laravelmix/ ./
 RUN npm run prod
 
 # Stage 2: Install PHP dependencies
-FROM composer:2 AS vendor
+FROM php:8.4-cli-alpine AS vendor
+
+RUN apk add --no-cache git unzip libzip-dev icu-dev oniguruma-dev \
+    && docker-php-ext-install zip intl mbstring \
+    && rm -rf /var/cache/apk/*
+
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 WORKDIR /app
 COPY composer.json composer.lock* ./
@@ -20,7 +26,7 @@ RUN composer install \
     && composer dump-autoload --optimize
 
 # Stage 3: Production image
-FROM php:8.2-fpm-alpine
+FROM php:8.4-fpm-alpine
 
 RUN apk add --no-cache \
     nginx \
