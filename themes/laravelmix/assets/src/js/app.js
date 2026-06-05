@@ -46,6 +46,125 @@ function initParallax() {
     update();
 }
 
+const FADE_IN_SEC = 3;
+const FADE_OUT_SEC = 2;
+const TARGET_GAIN = 0.032;
+
+function createAmbientEngine(ctx) {
+    const master = ctx.createGain();
+    master.gain.value = 0;
+    master.connect(ctx.destination);
+
+    const tone = ctx.createBiquadFilter();
+    tone.type = 'lowpass';
+    tone.frequency.value = 900;
+    tone.Q.value = 0.5;
+    tone.connect(master);
+
+    const delay = ctx.createDelay(1.2);
+    delay.delayTime.value = 0.42;
+    const delayMix = ctx.createGain();
+    delayMix.gain.value = 0.22;
+    delay.connect(delayMix);
+    delayMix.connect(tone);
+    delayMix.connect(delay);
+
+    const padBus = ctx.createGain();
+    padBus.gain.value = 0.11;
+    padBus.connect(tone);
+    padBus.connect(delay);
+
+    const arpBus = ctx.createGain();
+    arpBus.gain.value = 0.14;
+    arpBus.connect(tone);
+    arpBus.connect(delay);
+
+    // A minor — warm, consonant pad + slow pentatonic arpeggio
+    const padFreqs = [220.0, 261.63, 329.63, 440.0];
+    const arpPattern = [220, 261.63, 329.63, 392, 440, 523.25, 440, 392, 329.63, 261.63];
+    const arpStepMs = 750;
+
+    let padOscs = [];
+    let arpTimer = null;
+    let arpStep = 0;
+    let running = false;
+    let stopping = false;
+
+    function startPad() {
+        padOscs = padFreqs.map((freq, i) => {
+            const osc = ctx.createOscillator();
+            osc.type = 'sine';
+            osc.frequency.value = freq;
+            osc.detune.value = (i - 1.5) * 3;
+            osc.connect(padBus);
+            osc.start();
+            return osc;
+        });
+    }
+
+    function stopPad() {
+        padOscs.forEach(osc => {
+            try { osc.stop(); } catch (e) { /* already stopped */ }
+        });
+        padOscs = [];
+    }
+
+    function playArpNote(freq) {
+        const t = ctx.currentTime;
+        const osc = ctx.createOscillator();
+        const env = ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.value = freq;
+        env.gain.setValueAtTime(0, t);
+        env.gain.linearRampToValueAtTime(0.55, t + 0.12);
+        env.gain.exponentialRampToValueAtTime(0.001, t + 1.1);
+        osc.connect(env);
+        env.connect(arpBus);
+        osc.start(t);
+        osc.stop(t + 1.15);
+    }
+
+    function scheduleArp() {
+        playArpNote(arpPattern[arpStep % arpPattern.length]);
+        arpStep++;
+        arpTimer = setTimeout(scheduleArp, arpStepMs);
+    }
+
+    function fadeTo(value, duration) {
+        const t = ctx.currentTime;
+        master.gain.cancelScheduledValues(t);
+        master.gain.setValueAtTime(master.gain.value, t);
+        master.gain.linearRampToValueAtTime(value, t + duration);
+    }
+
+    return {
+        master,
+        fadeIn() { fadeTo(TARGET_GAIN, FADE_IN_SEC); },
+        fadeOut() {
+            fadeTo(0, FADE_OUT_SEC);
+            return new Promise(resolve => setTimeout(resolve, FADE_OUT_SEC * 1000 + 80));
+        },
+        start() {
+            if (running || stopping) return;
+            running = true;
+            startPad();
+            arpStep = 0;
+            scheduleArp();
+            this.fadeIn();
+        },
+        async stop() {
+            if (!running || stopping) return;
+            stopping = true;
+            running = false;
+            clearTimeout(arpTimer);
+            arpTimer = null;
+            await this.fadeOut();
+            stopPad();
+            stopping = false;
+        },
+    };
+}
+
 function initAudio() {
     const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const toggles = document.querySelectorAll('#audio-toggle, #audio-toggle-mobile');
@@ -55,7 +174,32 @@ function initAudio() {
     let enabled = localStorage.getItem('acme-audio') !== 'off';
     let armed = false;
     let ambientCtx = null;
-    let ambientNodes = null;
+    let ambientEngine = null;
+    let mediaSource = null;
+    let usingMediaElement = false;
+
+    function ensureContext() {
+        if (!ambientCtx) {
+            ambientCtx = new (window.AudioContext || window.webkitAudioContext)();
+            ambientEngine = createAmbientEngine(ambientCtx);
+        }
+        if (ambientCtx.state === 'suspended') {
+            ambientCtx.resume();
+        }
+    }
+
+    function setupMediaElement() {
+        if (!audioEl || mediaSource) return false;
+        try {
+            mediaSource = ambientCtx.createMediaElementSource(audioEl);
+            mediaSource.connect(ambientEngine.master);
+            audioEl.loop = true;
+            usingMediaElement = true;
+            return true;
+        } catch (e) {
+            return false;
+        }
+    }
 
     function updateUI() {
         toggles.forEach(t => {
@@ -65,52 +209,35 @@ function initAudio() {
         });
     }
 
-    function startWebAudioAmbient() {
-        if (prefersReduced || ambientNodes) return;
-        try {
-            ambientCtx = new (window.AudioContext || window.webkitAudioContext)();
-            const osc1 = ambientCtx.createOscillator();
-            const osc2 = ambientCtx.createOscillator();
-            const gain = ambientCtx.createGain();
-            osc1.type = 'sine';
-            osc2.type = 'triangle';
-            osc1.frequency.value = 110;
-            osc2.frequency.value = 165;
-            gain.gain.value = 0.12;
-            osc1.connect(gain);
-            osc2.connect(gain);
-            gain.connect(ambientCtx.destination);
-            osc1.start();
-            osc2.start();
-            ambientNodes = { osc1, osc2, gain };
-        } catch (e) { /* silent */ }
-    }
-
-    function stopWebAudioAmbient() {
-        if (ambientNodes) {
-            try {
-                ambientNodes.osc1.stop();
-                ambientNodes.osc2.stop();
-                ambientCtx.close();
-            } catch (e) { /* silent */ }
-            ambientNodes = null;
-            ambientCtx = null;
-        }
-    }
-
-    function playAmbient() {
+    async function playAmbient() {
         if (!enabled || prefersReduced) return;
-        if (audioEl) {
-            audioEl.volume = 0.7;
-            audioEl.play().catch(() => startWebAudioAmbient());
-        } else {
-            startWebAudioAmbient();
+        ensureContext();
+
+        if (audioEl && audioEl.src) {
+            setupMediaElement();
+            try {
+                await audioEl.play();
+                ambientEngine.start();
+                return;
+            } catch (e) {
+                usingMediaElement = false;
+            }
         }
+
+        ambientEngine.start();
     }
 
-    function stopAmbient() {
-        if (audioEl) { audioEl.pause(); audioEl.currentTime = 0; }
-        stopWebAudioAmbient();
+    async function stopAmbient() {
+        if (usingMediaElement && audioEl) {
+            await ambientEngine.stop();
+            audioEl.pause();
+            try { audioEl.currentTime = 0; } catch (e) { /* silent */ }
+            usingMediaElement = false;
+            return;
+        }
+        if (ambientEngine) {
+            await ambientEngine.stop();
+        }
     }
 
     function armOnInteraction() {
@@ -146,16 +273,19 @@ function initAudio() {
         el.addEventListener('click', () => {
             if (!enabled || prefersReduced) return;
             try {
-                const ctx = new (window.AudioContext || window.webkitAudioContext)();
-                const osc = ctx.createOscillator();
-                const gain = ctx.createGain();
-                osc.frequency.value = 440;
-                gain.gain.setValueAtTime(0.08, ctx.currentTime);
-                gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.08);
-                osc.connect(gain);
-                gain.connect(ctx.destination);
-                osc.start();
-                osc.stop(ctx.currentTime + 0.08);
+                ensureContext();
+                const t = ambientCtx.currentTime;
+                const osc = ambientCtx.createOscillator();
+                const env = ambientCtx.createGain();
+                osc.type = 'sine';
+                osc.frequency.value = 523.25;
+                env.gain.setValueAtTime(0, t);
+                env.gain.linearRampToValueAtTime(0.04, t + 0.02);
+                env.gain.exponentialRampToValueAtTime(0.001, t + 0.35);
+                osc.connect(env);
+                env.connect(ambientCtx.destination);
+                osc.start(t);
+                osc.stop(t + 0.36);
             } catch (e) { /* silent */ }
         });
     });

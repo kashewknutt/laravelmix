@@ -46,9 +46,9 @@ All gated behind `prefers-reduced-motion: reduce` in `extra.css` and `app.js`.
 
 ## Audio
 
-- Looping ambient: `assets/dist/audio/ambient.mp3` (add your own file)
+- Looping ambient: procedural A-minor pad + slow pentatonic arpeggio (Web Audio), or `assets/src/audio/ambient.mp3` if provided
+- Fades in over ~3s, fades out over ~2s on mute; master volume ~0.032
 - Arms on first user interaction (`click`, `scroll`, `pointermove`, `keydown`)
-- Web Audio fallback if MP3 missing or blocked
 - Mute toggle in header; state in `localStorage.acme-audio` (`on` / `off`)
 
 ## Sections (homepage)

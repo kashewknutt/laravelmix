@@ -5,8 +5,8 @@ meta_title = "Experience Lab"
 meta_description = "Explore immersive layouts, micro-interactions, and conversion surfaces — a live demonstration of what Valnee Solutions can build for you."
 is_hidden = 0
 ==
-<section class="relative py-24 bg-bg hero-grid overflow-hidden">
-    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+<section class="relative py-24 bg-bg hero-grid overflow-hidden section-tight md:py-24">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 align-m max-w-3xl md:max-w-none">
         <p class="eyebrow mb-4 reveal">Experience Lab</p>
         <h1 class="font-display text-3xl font-bold uppercase text-fg sm:text-4xl lg:text-5xl reveal reveal-delay-1">
             See what premium feels like.
@@ -21,7 +21,7 @@ is_hidden = 0
 <div class="container mx-auto px-4 py-16 sm:px-6 lg:px-8">
 
     <section class="mb-24">
-        <div class="mb-10 reveal">
+        <div class="mb-10 reveal align-m">
             <p class="eyebrow mb-2">Layout</p>
             <h2 class="font-display text-2xl font-bold uppercase text-fg sm:text-3xl">Cards that glide into place</h2>
             <p class="mt-2 text-muted font-body">Responsive grids that adapt gracefully at every breakpoint.</p>
@@ -33,7 +33,7 @@ is_hidden = 0
                 { title: 'Social Proof', body: 'Testimonials and metrics positioned to build credibility at the moment of decision.' }
             ] %}
             {% for card in cards %}
-                <div class="reveal reveal-delay-{{ loop.index }} offset-panel p-6 rounded-lg card-lift">
+                <div class="reveal reveal-delay-{{ loop.index }} offset-panel p-6 rounded-lg card-lift card-m-center">
                     <div class="h-28 mb-4 rounded-lg bg-surface-2 border border-border flex items-center justify-center">
                         <div class="w-14 h-14 rounded-lg bg-accent"></div>
                     </div>
@@ -45,7 +45,7 @@ is_hidden = 0
     </section>
 
     <section class="mb-24">
-        <div class="mb-10 reveal">
+        <div class="mb-10 reveal align-m">
             <p class="eyebrow mb-2">Depth</p>
             <h2 class="font-display text-2xl font-bold uppercase text-fg sm:text-3xl">Layers that create dimension</h2>
         </div>
@@ -77,13 +77,13 @@ is_hidden = 0
     </section>
 
     <section class="mb-24">
-        <div class="mb-10 reveal">
+        <div class="mb-10 reveal align-m">
             <p class="eyebrow mb-2">Interactions</p>
             <h2 class="font-display text-2xl font-bold uppercase text-fg sm:text-3xl">Micro-interactions that delight</h2>
         </div>
         <div class="grid gap-6 md:grid-cols-2">
 
-            <div x-data="{ open: false }" class="reveal p-6 rounded-lg bg-surface border border-border">
+            <div x-data="{ open: false }" class="reveal p-6 rounded-lg bg-surface border border-border card-m-center">
                 <p class="text-sm font-medium text-fg mb-4 font-body">Expandable panels</p>
                 <button @click="open = !open" class="flex items-center justify-between w-full px-4 py-3 text-sm font-medium rounded-lg bg-surface-2 border border-border hover:border-accent transition-colors font-body">
                     <span>What makes Valnee different?</span>
@@ -94,7 +94,7 @@ is_hidden = 0
                 </div>
             </div>
 
-            <div x-data="{ modal: false }" class="reveal reveal-delay-1 p-6 rounded-lg bg-surface border border-border">
+            <div x-data="{ modal: false }" class="reveal reveal-delay-1 p-6 rounded-lg bg-surface border border-border card-m-center">
                 <p class="text-sm font-medium text-fg mb-4 font-body">Focused overlays</p>
                 <button @click="modal = true" class="px-5 py-2.5 text-sm font-semibold rounded-lg bg-accent text-accent-fg cta-magnetic font-body uppercase" data-sound>Open preview</button>
                 <div x-show="modal" x-cloak class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm" @keydown.escape.window="modal = false">
@@ -106,7 +106,7 @@ is_hidden = 0
                 </div>
             </div>
 
-            <div x-data="{ toast: false }" class="reveal p-6 rounded-lg bg-surface border border-border">
+            <div x-data="{ toast: false }" class="reveal p-6 rounded-lg bg-surface border border-border card-m-center">
                 <p class="text-sm font-medium text-fg mb-4 font-body">Instant feedback</p>
                 <button @click="toast = true; setTimeout(() => toast = false, 3000)" class="px-5 py-2.5 text-sm font-semibold rounded-lg bg-accent text-accent-fg font-body uppercase" data-sound>Trigger notification</button>
                 <div x-show="toast" x-cloak x-transition class="fixed bottom-8 right-8 px-6 py-4 text-sm font-medium text-fg rounded-lg bg-surface border border-accent font-body">
@@ -114,7 +114,7 @@ is_hidden = 0
                 </div>
             </div>
 
-            <div x-data="{ visible: true }" class="reveal reveal-delay-1 p-6 rounded-lg bg-surface border border-border">
+            <div x-data="{ visible: true }" class="reveal reveal-delay-1 p-6 rounded-lg bg-surface border border-border card-m-center">
                 <p class="text-sm font-medium text-fg mb-4 font-body">Smooth transitions</p>
                 <button @click="visible = !visible" class="px-5 py-2.5 text-sm font-medium rounded-lg border border-border hover:border-accent font-body">Toggle content</button>
                 <div x-show="visible" x-transition class="mt-4 p-4 text-sm text-muted rounded-lg bg-surface-2 border border-border font-body">

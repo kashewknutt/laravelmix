@@ -31,6 +31,97 @@ html {
 body {
     background-color: var(--bg);
     color: var(--fg);
+    overflow-x: hidden;
+}
+
+/* Mobile — center content, tighter rhythm, no overflow */
+@media (max-width: 767px) {
+    .align-m {
+        text-align: center;
+    }
+
+    .align-m .eyebrow,
+    .align-m-center .eyebrow {
+        display: block;
+    }
+
+    .flex-m-center {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .btn-row-m {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.75rem;
+        width: 100%;
+    }
+
+    .btn-row-m > a,
+    .btn-row-m > button {
+        width: 100%;
+        max-width: 20rem;
+    }
+
+    .card-m-center {
+        text-align: center;
+    }
+
+    .section-tight {
+        padding-top: 4rem;
+        padding-bottom: 4rem;
+    }
+
+    .display-hero {
+        font-size: clamp(2.125rem, 10vw, 3.25rem);
+        line-height: 1.05;
+        letter-spacing: -0.03em;
+    }
+
+    .offset-panel::after {
+        display: none;
+    }
+
+    .hero-grid {
+        background-size: 48px 48px;
+    }
+
+    .vs-col ul,
+    .vs-highlight ul {
+        max-width: 16rem;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .vs-col,
+    .vs-highlight {
+        text-align: center;
+    }
+
+    .vs-col li,
+    .vs-highlight li {
+        justify-content: center;
+    }
+
+    .mobile-nav-panel {
+        text-align: center;
+    }
+
+    .mobile-nav-panel a {
+        justify-content: center;
+        text-align: center;
+    }
+}
+
+@media (min-width: 768px) {
+    .align-m { text-align: left; }
+    .flex-m-center { align-items: flex-start; }
+    .btn-row-m { justify-content: flex-start; }
+    .btn-row-m > a,
+    .btn-row-m > button { width: auto; max-width: none; }
+    .card-m-center { text-align: left; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -170,3 +261,15 @@ body {
 }
 .icon-btn:hover { color: var(--fg); border-color: var(--fg); }
 .icon-btn.is-on { background: var(--accent); color: var(--accent-fg); border-color: var(--accent); }
+
+/* Navbar — translucent frosted glass on scroll */
+.nav-bar-glass {
+    background-color: rgba(20, 20, 22, 0.62);
+    -webkit-backdrop-filter: blur(14px) saturate(1.2);
+    backdrop-filter: blur(14px) saturate(1.2);
+    border-bottom: 1px solid var(--border);
+}
+
+[data-theme="light"] .nav-bar-glass {
+    background-color: rgba(255, 255, 255, 0.68);
+}

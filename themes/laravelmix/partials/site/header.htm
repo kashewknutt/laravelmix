@@ -10,7 +10,7 @@
         }
     }"
     x-init="window.addEventListener('scroll', () => { scrolled = window.scrollY > 24 })"
-    :class="scrolled ? 'bg-surface/95 backdrop-blur-md border-b border-border shadow-soft' : 'bg-transparent'"
+    :class="scrolled ? 'nav-bar-glass shadow-soft' : 'bg-transparent border-b border-transparent'"
     class="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
 >
     {% set navItems = [
@@ -58,10 +58,10 @@
         </div>
 
         <nav x-show="open" x-cloak x-transition class="pb-4 md:hidden">
-            <div class="flex flex-col gap-1 p-3 rounded-lg bg-surface border border-border">
+            <div class="mobile-nav-panel flex flex-col gap-1 p-3 rounded-lg bg-surface border border-border">
                 {% for item in navItems %}
                     <a href="{{ item.url }}" @click="open = false"
-                        class="px-4 py-3 text-sm font-medium rounded-lg font-body {{ this.page.url == item.url ? 'text-accent bg-surface-2' : 'text-muted hover:bg-surface-2' }}"
+                        class="flex px-4 py-3 text-sm font-medium rounded-lg font-body {{ this.page.url == item.url ? 'text-accent bg-surface-2' : 'text-muted hover:bg-surface-2' }}"
                     >{{ item.label }}</a>
                 {% endfor %}
                 <a href="/contact" @click="open = false" class="mt-2 px-4 py-3 text-sm font-semibold text-center rounded-lg bg-accent text-accent-fg font-body uppercase" data-sound>Start a build</a>

@@ -5,8 +5,8 @@ meta_title = "About"
 meta_description = "How Valnee Solutions shapes premium product experiences — from strategy to launch."
 is_hidden = 0
 ==
-<section class="relative py-24 bg-bg hero-grid overflow-hidden">
-    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+<section class="relative py-24 bg-bg hero-grid overflow-hidden section-tight md:py-24">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 align-m max-w-3xl md:max-w-none">
         <p class="eyebrow mb-4 reveal">About this experience</p>
         <h1 class="font-display text-3xl font-bold uppercase text-fg sm:text-4xl lg:text-5xl reveal reveal-delay-1">
             ACME is fiction.<br>The craft is real.
@@ -67,7 +67,7 @@ is_hidden = 0
     </div>
 
     <section class="mt-24">
-        <div class="text-center mb-16 reveal">
+        <div class="text-center mb-16">
             <p class="eyebrow mb-3">Our process</p>
             <h2 class="font-display text-3xl font-bold uppercase text-fg sm:text-4xl">From vision to launch</h2>
         </div>
@@ -79,8 +79,8 @@ is_hidden = 0
                 { num: '04', title: 'Launch', body: 'Deployed, tested, and in your users\' hands. We don\'t disappear after launch — we iterate with you.' }
             ] %}
             {% for step in steps %}
-                <div class="reveal reveal-delay-{{ loop.index }} flex gap-6 pb-12 {{ not loop.last ? 'border-l-2 border-border ml-5 pl-8' : 'ml-5 pl-8' }}">
-                    <div class="flex-shrink-0 -ml-[2.55rem] flex items-center justify-center w-10 h-10 text-xs font-bold rounded-lg bg-accent text-accent-fg font-body">
+                <div class="reveal reveal-delay-{{ loop.index }} flex flex-col items-center text-center sm:flex-row sm:items-start sm:text-left gap-4 sm:gap-6 pb-12 {{ not loop.last ? 'border-l-0 sm:border-l-2 border-border sm:ml-5 sm:pl-8' : 'sm:ml-5 sm:pl-8' }}">
+                    <div class="flex-shrink-0 sm:-ml-[2.55rem] flex items-center justify-center w-10 h-10 text-xs font-bold rounded-lg bg-accent text-accent-fg font-body">
                         {{ step.num }}
                     </div>
                     <div>
@@ -99,7 +99,7 @@ is_hidden = 0
             { title: 'Ownership', body: 'Your code, your product, your IP. Always.' }
         ] %}
         {% for val in values %}
-            <div class="reveal reveal-delay-{{ loop.index }} p-6 rounded-lg bg-surface border border-border card-lift text-center">
+            <div class="reveal reveal-delay-{{ loop.index }} p-6 rounded-lg bg-surface border border-border card-lift text-center card-m-center">
                 <h3 class="font-display text-lg font-bold uppercase text-fg">{{ val.title }}</h3>
                 <p class="mt-2 text-sm text-muted font-body">{{ val.body }}</p>
             </div>
