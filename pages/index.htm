@@ -8,6 +8,21 @@ is_hidden = 0
 {# Demo content. Replace with something useful #}
 <div class="my-2 text-2xl text-center">Colors defined in tailwind.config.js</div>
 
+<div class="container mx-auto mt-8 mb-8" x-data="{ open: false }">
+  <div class="p-6 text-center rounded-lg bg-primary-lightest">
+    <p class="mb-4 text-lg font-semibold text-primary-darkest">Alpine.js + Tailwind CSS</p>
+    <button
+      @click="open = !open"
+      class="px-4 py-2 font-medium text-white rounded bg-primary hover:bg-primary-dark"
+    >
+      <span x-text="open ? 'Hide details' : 'Show details'"></span>
+    </button>
+    <p x-show="open" x-transition class="mt-4 text-primary-dark">
+      Alpine.js is bundled via Laravel Mix in assets/src/js/app.js.
+    </p>
+  </div>
+</div>
+
 <div class="container mx-auto mt-8">
 <div class="md:-mx-2 md:-mt-5 md:flex md:flex-wrap">
 

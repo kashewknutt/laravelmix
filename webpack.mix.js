@@ -10,7 +10,7 @@ let postCssPlugins = [
 ];
 
 mix.setPublicPath('./')
-    .setResourceRoot('/themes/oc-tabularasa-theme') //replace "oc-tabularasa-theme" with your theme folder name
+    .setResourceRoot('/themes/laravelmix')
     .js('assets/src/js/app.js', 'assets/dist/js')
     .postCss('assets/src/css/app.css', 'assets/dist/css', postCssPlugins)
     .browserSync({

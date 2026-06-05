@@ -1,169 +1,175 @@
 # TabulaRasa Theme
 
-A free, minimal boilerplate theme for OctoberCMS using Tailwindcss.
+A minimal boilerplate theme for [October CMS](https://octobercms.com/) built on **Twig templating**, **Tailwind CSS**, **Alpine.js**, and **Laravel Mix**.
 
-I created this theme based on my personal needs, I hope somebody else will find it useful, too :-)
-There are other TailwindCss themes on October, however they failed me in several respects:
+Based on the original [TabulaRasa theme](https://github.com/cjkpl/oc-tabularas-theme) by CJK.PL, adapted and maintained by **kashewknutt**.
 
-- some require adding packages.json and node_modules in the website root (this breaks beautiful modularity of OctoberCMS)
-- some add a lot of bloatware: additional JS and CSS files, extra dependencies etc. I needed a clean TailwindCSS (+ optional, easily removable VueJS for more complex projects)
-- sometimes the October AJAX framework may be useful - therefore in `partials/site/scripts.htm` jquery is loaded, and additional framework scripts are included. Comment out the whole file if you dont intend to use it.
+## Stack
+
+| Layer | Technology | Location |
+|---|---|---|
+| Templating | October CMS (Twig) | `layouts/`, `pages/`, `partials/` |
+| CSS | Tailwind CSS v2 | `assets/src/css/app.css`, `tailwind.config.js` |
+| JS | Alpine.js v2 | `assets/src/js/app.js` (bundled via Mix) |
+| Build | Laravel Mix / webpack | `webpack.mix.js` |
 
 ## Features
 
-- Minimal setup, no bloated extras. Just one layout and one basic page
-- Easy to customise colors - all colors are defined in `tailwind.config.js`
-- Just one additional css file to restore minimal formatting - see below for details
-- Uses laravel-mix
-- Hot-reload for easy theme and site development
-- Commented-out lines allow quickly adding vue to your app
+- Minimal setup — one layout, one page, no bloat
+- Custom color palette defined in `tailwind.config.js`
+- Alpine.js bundled through Laravel Mix (no CDN dependencies)
+- Hot-reload via BrowserSync during development
+- Self-hosted Poppins font via npm
+- October AJAX framework available via jQuery (optional — comment out `partials/site/scripts.htm` if unused)
 
-### Theme Options
+## Installation
 
-This theme has no options - developers who need them can quickly add them as explained in OctoberCMS docs: https://octobercms.com/docs/themes/development#customization
+This is an October CMS theme. Place the theme folder in your October CMS installation:
 
-### Theme Colors
+```
+themes/laravelmix/
+```
 
-The theme uses a limited color selection. In the file `tailwind.config.js` you can find four sets of colours: primary, secondary, tertiary and grey, each of them with five variations: lightest, light, default, dark, and darkest.
+The folder name must match the `setResourceRoot` path in `webpack.mix.js`.
 
-There is an advantage to this setup - you can quickly change colors in the whole app, just by changing the primary & secondary colors.
+### 1. Install dependencies
 
-If you prefer to use standard TailwindCSS colours, remove the whole 'colors' section from the above file.
-
-### Theme Setup
-
-You must first install the theme dependencies. In the theme folder, execute:
+In the theme folder:
 
 ```
 npm install
 ```
 
-### Theme Customisation and Development
-
-In webpack.mix.js replace site name in the following line:
-
-```
-proxy: 'http://127.0.0.1:8000/',
-```
-
-If you use built-in php/laravel server (php artisan serve), the default value should work for you.
-
-Replace in webpack.mix.js your theme name if modified to load local fonts correctly
-
-```
-mix
-  .setPublicPath('./')
-  .setResourceRoot('/themes/{YOUR_THEME_FOLDER_NAME}')
-```
-
-When you run the command below:
-
-```
-npm run watch
-```
-
-you can open your site with hot-reload at http://localhost:3000
-
-### Optional CSS: tailwindcss-typography
-
-A plugin that provides a set of `prose` classes you can use to add beautiful typographic defaults to any vanilla HTML you don't control (like HTML rendered from Markdown, or pulled from a CMS).
-
-I found it useful to restore basic formatting options after normalize.css removes all formatting.
-Now you can use the prose classes to add sensible typography styles to any vanilla HTML:
-
-```
-<article class="prose lg:prose-xl">
-  <h1>Garlic bread with cheese: What the science tells us</h1>
-  <p>
-    For years parents have espoused the health benefits of eating garlic bread with cheese to their
-    children, with the food earning such an iconic status in our culture that kids will often dress
-    up as warm, cheesy loaf for Halloween.
-  </p>
-  <p>
-    But a recent study shows that the celebrated appetizer may be linked to a series of rabies cases
-    springing up around the country.
-  </p>
-  <!-- ... -->
-</article>
-```
-
-Tailwindcss-typography doc : https://github.com/tailwindlabs/tailwindcss-typography
-
-### Optional : load Google Fonts localy
-
-Possibility to add fonts localy via npm `npm install fontsource-{FONT_NAME})`, check https://github.com/fontsource/fontsource for details, the installed font can be imported in `themes/oc-tabularasa-theme/assets/src/css/app.css`, check the example `app.css` loading Poppins regular font.
-
-Example:
-install Poppins font
-
-```
-npm install fontsource-poppins
-```
-
-Import the fonts in `themes/{YOUR_THEME}/assets/src/css/app.css`
-```
-@import "tailwindcss/base";
-@import "tailwindcss/components";
-@import "tailwindcss/utilities";
-@import "extra.css";
-
-/* Add you fonts below, example */
-@import "~fontsource-poppins/400.css"; /*Poppins Regular*/
-@import "~fontsource-poppins/500.css"; /*Poppins Medium*/
-@import "~fontsource-poppins/700.css"; /*Poppins Bold*/
-```
-
-#### Why loading font localy ?
-
-- I like manage all my dependencies using npm, even for fonts.
-- Check https://www.bricolage.io/typefaces-easiest-way-to-self-host-fonts/ to find why self-hosting fonts is significantly faste than loading a typeface from Google Fonts or other hosted font service.
-
-### Production build
-
-Use 'npm run prod' to compile your assets with purge and minimize options.
+### 2. Build assets
 
 ```
 npm run prod
 ```
 
-When you deploy your site, you do not need to copy the node_modules folder! It is a huge folder, over 100Mb, and it is only needed in the development stage. It is utterly useless in the production environment (if you do need that folder in the production environment, you know what you're doing and you can ignore this comment)
+### 3. Activate the theme
 
-### Activating vue.js
+Enable the theme in the October CMS backend under **Settings → Front-end theme**.
 
-The theme is ready to support vue - all you have to do is:
+## Development
 
-- uncomment the contents of assets/src/js/app.js
-- add id="app" to an outer div in the layout - there is a comment in the layout file to assist with that
-  When you run npm install in the setup phase, all support libraries for using vue will be downloaded and ready to use, but they will not be loaded unless you activate vue in app.js
+### Hot-reload
 
-### Activating Alpine.js + Spruce.js + Axios
+Start your October CMS dev server (e.g. `php artisan serve` on port 8000), then run:
 
-The theme is alternativel ready to support Alpine.js as a Vue replacement. All you have to do is:
+```
+npm run watch
+```
 
-- in the layouts/default uncomment {% partial 'site/scripts_alpine' %} (replace # with %)
+Open your site with hot-reload at **http://localhost:3000**.
 
-Note: make sure you do not activate both Vue.js and Alpine.js at the same time. Or, if you do, make sure that Vue does not take over the whole DOM - use it locally, otherwise it will conflict with Alpine tags.
+### Configuration
 
-### Theme License
+If your October CMS URL differs from the default, update the proxy in `webpack.mix.js`:
 
-MIT License - check out [LICENSE.md](LICENSE.md) file for MIT license details
+```
+proxy: 'http://127.0.0.1:8000/',
+```
 
-### Changelog
+If you rename the theme folder, update the resource root accordingly:
 
-#### 2.0.0 - 2020-11-28
+```
+mix
+  .setPublicPath('./')
+  .setResourceRoot('/themes/laravelmix')
+```
 
-**Important / potentially breaking changes! / Tailwind CSS V2**
+### Key files
 
-- TailwindCSS upgraded to `postcss7-compat@^2.0.1` for compatibility reason with Laravel-mix dependencies (laravel-mix postcss-loader is not compatible with postcss8), check https://tailwindcss.com/docs/installation#post-css-7-compatibility-build
-- Possibility to add fonts localy via npm `npm install fontsource-{FONT_NAME})`, check https://github.com/fontsource/fontsource for details, the installed font can be imported in `themes/{YOUR_THEME}/assets/src/css/app.css`.
+| File | Purpose |
+|---|---|
+| `layouts/default.htm` | Main layout |
+| `pages/index.htm` | Homepage |
+| `partials/site/` | Reusable template partials |
+| `assets/src/css/app.css` | Tailwind entry point |
+| `assets/src/js/app.js` | Alpine.js entry point |
+| `tailwind.config.js` | Tailwind theme config (colors, fonts) |
+| `webpack.mix.js` | Laravel Mix build config |
 
-#### 1.0.2 - 2020-11-11
+## Alpine.js
 
-Important / potentially breaking changes!
+Alpine.js is bundled via Laravel Mix and loaded through `partials/site/scripts.htm`. Add Alpine directives directly in your Twig templates:
 
-- Added `Typography` TailwindCSS plugin to requirements. This replaces htmlcontent.css (removed). Use `prose` class instead of `htmlcontent`.
-- Removed postcss-\* from weback.mix.js
-- Added standard "gray-100..900" colors. This will replace now deprecated grey-lightest..darkest - it does not make much sense to use custom version of grey, as grey is pretty much the same whether custom or standard.
-- Modified default layout: id=app now removed, if you need it - add it. Global vue instance was clashing with local Alpine.js apps.
-- Added partials/site/scripts_alpine.htm for those folks who - like me - prefer to switch from Vue to Alpine. Disabled by default. That partial loads: Alpine.js (2.x), Spruce (2.x), and Axios.
-- Updated jquery to 3.5.1 in partials/site/scripts
+```html
+<div x-data="{ open: false }">
+  <button @click="open = !open">Toggle</button>
+  <p x-show="open">Hello from Alpine!</p>
+</div>
+```
+
+Alpine 2.x is used for compatibility with Laravel Mix 5. Do not activate Vue.js and Alpine.js at the same time unless Vue is scoped locally.
+
+## Theme Colors
+
+The theme defines four custom color sets in `tailwind.config.js`: **primary**, **secondary**, **tertiary**, and **grey**, each with five variations (lightest, light, default, dark, darkest). Standard Tailwind `gray-100` through `gray-900` are also included.
+
+To use standard Tailwind colors instead, remove the custom `colors` section from `tailwind.config.js`.
+
+## Optional: Tailwind Typography
+
+The `@tailwindcss/typography` plugin provides `prose` classes for rich text content. It is included as a dependency but commented out in `tailwind.config.js` for compatibility. Uncomment the plugin to enable it:
+
+```html
+<article class="prose lg:prose-xl">
+  <h1>Your heading</h1>
+  <p>Your content...</p>
+</article>
+```
+
+Docs: https://github.com/tailwindlabs/tailwindcss-typography
+
+## Optional: Self-hosted Fonts
+
+Fonts can be added via npm. Poppins is included by default:
+
+```
+npm install fontsource-poppins
+```
+
+Import in `assets/src/css/app.css`:
+
+```
+@import "~fontsource-poppins/400.css";
+@import "~fontsource-poppins/500.css";
+@import "~fontsource-poppins/700.css";
+```
+
+See https://github.com/fontsource/fontsource for available fonts.
+
+## Production Build
+
+```
+npm run prod
+```
+
+Do not deploy `node_modules/` — it is only needed during development. Compiled assets live in `assets/dist/`.
+
+## License
+
+MIT License — see [LICENSE.md](LICENSE.md).
+
+Original theme by [CJK.PL](https://cjk.pl). Adapted by **kashewknutt**.
+
+## Changelog
+
+### 2.1.0 — 2026-06-05 (kashewknutt)
+
+- Configured stack: Twig (October CMS) + Tailwind CSS + Alpine.js + Laravel Mix
+- Alpine.js bundled via npm and Laravel Mix (replaces CDN loading)
+- Theme resource root set to `/themes/laravelmix`
+- Added Alpine.js demo on homepage
+
+### 2.0.0 — 2020-11-28 (CJK.PL)
+
+- TailwindCSS upgraded to `postcss7-compat@^2.0.1`
+- Self-hosted fonts via fontsource npm packages
+
+### 1.0.2 — 2020-11-11 (CJK.PL)
+
+- Added Typography plugin support
+- Added Alpine.js CDN partial (since replaced)
+- Updated jQuery to 3.5.1
