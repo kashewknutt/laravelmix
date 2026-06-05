@@ -1,16 +1,22 @@
 #!/usr/bin/env bash
 # One-time GCP infrastructure setup for Cloud Run deployment.
-# Usage: ./scripts/gcp-setup.sh PROJECT_ID REGION
+# Usage: ./scripts/gcp-setup.sh [PROJECT_ID] [REGION]
 
 set -euo pipefail
 
-PROJECT_ID="${1:?Usage: $0 PROJECT_ID REGION}"
-REGION="${2:?Usage: $0 PROJECT_ID REGION}"
+PROJECT_ID="${1:-valneetrivial}"
+REGION="${2:-asia-south1}"
+GITHUB_REPO="${GITHUB_REPO:-kashewknutt/laravelmix}"
+PROJECT_NUMBER="${PROJECT_NUMBER:-4092394746}"
 SERVICE_ACCOUNT="github-actions-deployer"
 REPO="laravelmix"
 POOL="github-pool"
 PROVIDER="github-provider"
-GITHUB_REPO="${GITHUB_REPO:-}"
+
+echo "==> Project: ${PROJECT_ID} (${PROJECT_NUMBER})"
+echo "==> Region:  ${REGION}"
+echo "==> GitHub:  ${GITHUB_REPO}"
+echo ""
 
 echo "==> Enabling required APIs"
 gcloud services enable \
@@ -48,33 +54,49 @@ gcloud iam workload-identity-pools create "${POOL}" \
   --project="${PROJECT_ID}" \
   2>/dev/null || echo "Pool already exists"
 
-PROJECT_NUMBER=$(gcloud projects describe "${PROJECT_ID}" --format='value(projectNumber)')
+ACTUAL_PROJECT_NUMBER=$(gcloud projects describe "${PROJECT_ID}" --format='value(projectNumber)')
 
-if [ -n "${GITHUB_REPO}" ]; then
-  echo "==> Creating Workload Identity Provider for ${GITHUB_REPO}"
-  gcloud iam workload-identity-pools providers create-oidc "${PROVIDER}" \
-    --location="global" \
-    --workload-identity-pool="${POOL}" \
-    --display-name="GitHub Provider" \
-    --issuer-uri="https://token.actions.githubusercontent.com" \
-    --attribute-mapping="google.subject=assertion.sub,attribute.repository=assertion.repository" \
-    --attribute-condition="assertion.repository=='${GITHUB_REPO}'" \
-    --project="${PROJECT_ID}" \
-    2>/dev/null || echo "Provider already exists"
+echo "==> Creating Workload Identity Provider for ${GITHUB_REPO}"
+gcloud iam workload-identity-pools providers create-oidc "${PROVIDER}" \
+  --location="global" \
+  --workload-identity-pool="${POOL}" \
+  --display-name="GitHub Provider" \
+  --issuer-uri="https://token.actions.githubusercontent.com" \
+  --attribute-mapping="google.subject=assertion.sub,attribute.repository=assertion.repository" \
+  --attribute-condition="assertion.repository=='${GITHUB_REPO}'" \
+  --project="${PROJECT_ID}" \
+  2>/dev/null || echo "Provider already exists"
 
-  gcloud iam service-accounts add-iam-policy-binding "${SA_EMAIL}" \
-    --role="roles/iam.workloadIdentityUser" \
-    --member="principalSet://iam.googleapis.com/projects/${PROJECT_NUMBER}/locations/global/workloadIdentityPools/${POOL}/attribute.repository/${GITHUB_REPO}" \
-    --project="${PROJECT_ID}" \
-    --quiet
-fi
+gcloud iam service-accounts add-iam-policy-binding "${SA_EMAIL}" \
+  --role="roles/iam.workloadIdentityUser" \
+  --member="principalSet://iam.googleapis.com/projects/${ACTUAL_PROJECT_NUMBER}/locations/global/workloadIdentityPools/${POOL}/attribute.repository/${GITHUB_REPO}" \
+  --project="${PROJECT_ID}" \
+  --quiet
+
+WIF_PROVIDER="projects/${ACTUAL_PROJECT_NUMBER}/locations/global/workloadIdentityPools/${POOL}/providers/${PROVIDER}"
 
 echo ""
-echo "=== Add these GitHub repository secrets ==="
-echo "GCP_PROJECT_ID=${PROJECT_ID}"
-echo "GCP_REGION=${REGION}"
-echo "GCP_SERVICE_ACCOUNT=${SA_EMAIL}"
-echo "GCP_WORKLOAD_IDENTITY_PROVIDER=projects/${PROJECT_NUMBER}/locations/global/workloadIdentityPools/${POOL}/providers/${PROVIDER}"
+echo "========================================"
+echo "  GitHub Secrets (copy these exactly)"
+echo "========================================"
 echo ""
-echo "Set GITHUB_REPO=owner/repo when running this script to configure Workload Identity Federation:"
-echo "  GITHUB_REPO=owner/repo ./scripts/gcp-setup.sh ${PROJECT_ID} ${REGION}"
+echo "Go to: https://github.com/${GITHUB_REPO}/settings/secrets/actions"
+echo ""
+echo "GCP_PROJECT_ID"
+echo "  ${PROJECT_ID}"
+echo ""
+echo "GCP_REGION"
+echo "  ${REGION}"
+echo ""
+echo "GCP_SERVICE_ACCOUNT"
+echo "  ${SA_EMAIL}"
+echo ""
+echo "GCP_WORKLOAD_IDENTITY_PROVIDER"
+echo "  ${WIF_PROVIDER}"
+echo ""
+echo "APP_KEY"
+echo "  Run locally: php artisan key:generate --show"
+echo ""
+echo "========================================"
+echo "  Next: push to main to trigger deploy"
+echo "========================================"

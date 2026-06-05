@@ -1,1 +1,50 @@
-[x-cloak] { display: none; }
+[x-cloak] {
+    display: none !important;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+*:focus-visible {
+    outline: 2px solid #6366F1;
+    outline-offset: 2px;
+}
+
+.card-lift {
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-lift:hover {
+    transform: translateY(-2px);
+}
+
+.eyebrow {
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #6366F1;
+}
+
+.prose-acme h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #0F172A;
+    margin-bottom: 1rem;
+}
+
+.prose-acme p {
+    color: #64748B;
+    line-height: 1.625;
+    margin-bottom: 1rem;
+}
+
+.prose-acme a {
+    color: #6366F1;
+    text-decoration: underline;
+}
+
+.prose-acme a:hover {
+    color: #4338CA;
+}

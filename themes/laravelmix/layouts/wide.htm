@@ -1,4 +1,4 @@
-description = "Default layout"
+description = "Wide layout for full-bleed sections"
 
 ==
 <!doctype html>
@@ -9,7 +9,7 @@ description = "Default layout"
 <body class="font-body text-ink bg-surface antialiased">
     <div class="flex flex-col min-h-screen">
         {% partial 'site/header' %}
-        <main class="flex-grow">
+        <main class="flex-grow w-full">
             {% page %}
         </main>
         {% partial 'site/footer' %}

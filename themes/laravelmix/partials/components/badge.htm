@@ -1,0 +1,6 @@
+{#
+  Usage: {% partial 'components/badge' label='Tailwind CSS' %}
+#}
+<span class="inline-flex items-center px-3 py-1 text-xs font-medium rounded-full bg-accent-light text-accent-dark {{ class|default('') }}">
+    {{ label }}
+</span>

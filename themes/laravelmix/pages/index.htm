@@ -1,292 +1,144 @@
-title = "Homepage"
+title = "Home"
 url = "/"
-layout = "default"
-meta_title = "TabulaRasa"
-meta_description = "A free flat landing page theme using Tailwindcss"
+layout = "wide"
+meta_title = "Home"
+meta_description = "ACME Solutions — a minimal portfolio demo built with Twig, Tailwind CSS, Alpine.js, and October CMS."
 is_hidden = 0
 ==
-{# Demo content. Replace with something useful #}
-<div class="my-2 text-2xl text-center">Colors defined in tailwind.config.js</div>
+<section class="relative overflow-hidden bg-gradient-to-b from-accent-light to-surface">
+    <div class="container mx-auto px-4 py-24 sm:px-6 sm:py-32 lg:px-8">
+        <div
+            x-data="{ shown: false }"
+            x-init="setTimeout(() => shown = true, 100)"
+            class="max-w-3xl mx-auto text-center"
+        >
+            <p
+                x-show="shown"
+                x-transition:enter="transition ease-out duration-500"
+                x-transition:enter-start="opacity-0 translate-y-4"
+                x-transition:enter-end="opacity-100 translate-y-0"
+                class="eyebrow mb-4"
+            >Portfolio Demo</p>
+            <h1
+                x-show="shown"
+                x-transition:enter="transition ease-out duration-700 delay-100"
+                x-transition:enter-start="opacity-0 translate-y-4"
+                x-transition:enter-end="opacity-100 translate-y-0"
+                class="text-4xl font-bold tracking-tight text-ink sm:text-5xl lg:text-6xl"
+            >
+                Clean design.<br>Modern front-end craft.
+            </h1>
+            <p
+                x-show="shown"
+                x-transition:enter="transition ease-out duration-700 delay-200"
+                x-transition:enter-start="opacity-0 translate-y-4"
+                x-transition:enter-end="opacity-100 translate-y-0"
+                class="mt-6 text-lg text-ink-muted max-w-xl mx-auto"
+            >
+                A fictional ACME company site showcasing Twig templates, Tailwind CSS, Alpine.js animations, and a full GCP CI/CD pipeline.
+            </p>
+            <div
+                x-show="shown"
+                x-transition:enter="transition ease-out duration-700 delay-300"
+                x-transition:enter-start="opacity-0 translate-y-4"
+                x-transition:enter-end="opacity-100 translate-y-0"
+                class="flex flex-wrap items-center justify-center gap-3 mt-10"
+            >
+                {% partial 'components/button' label='View Showcase' href='/showcase' variant='primary' %}
+                {% partial 'components/button' label='About ACME' href='/about' variant='outline' %}
+            </div>
+        </div>
+    </div>
+</section>
 
-<div class="container mx-auto mt-8 mb-8" x-data="{ open: false }">
-  <div class="p-6 text-center rounded-lg bg-primary-lightest">
-    <p class="mb-4 text-lg font-semibold text-primary-darkest">Alpine.js + Tailwind CSS</p>
-    <button
-      @click="open = !open"
-      class="px-4 py-2 font-medium text-white rounded bg-primary hover:bg-primary-dark"
-    >
-      <span x-text="open ? 'Hide details' : 'Show details'"></span>
-    </button>
-    <p x-show="open" x-transition class="mt-4 text-primary-dark">
-      Alpine.js is bundled via Laravel Mix in assets/src/js/app.js.
-    </p>
-  </div>
-</div>
+<section class="py-20 bg-surface">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        {% partial 'components/section-heading'
+            eyebrow='Stack'
+            title='Built with modern tools'
+            subtitle='Every layer of this demo is intentional — from templating to deployment.'
+        %}
+        <div
+            x-data="{ shown: false }"
+            x-init="setTimeout(() => shown = true, 200)"
+            class="grid gap-6 md:grid-cols-3"
+        >
+            {% set features = [
+                { icon: '🧩', title: 'Twig Templates', body: 'Component-driven partials with October CMS. Reusable, server-rendered HTML.' },
+                { icon: '🎨', title: 'Tailwind CSS', body: 'Token-based design system with minimal palette, responsive utilities, and custom animations.' },
+                { icon: '⚡', title: 'Alpine.js', body: 'Lightweight interactivity — transitions, toggles, and form states without a heavy framework.' }
+            ] %}
+            {% for feature in features %}
+                <div
+                    x-show="shown"
+                    x-transition:enter="transition ease-out duration-500"
+                    x-transition:enter-start="opacity-0 translate-y-6"
+                    x-transition:enter-end="opacity-100 translate-y-0"
+                    style="transition-delay: {{ loop.index0 * 100 }}ms"
+                >
+                    {% partial 'components/card' title=feature.title body=feature.body icon=feature.icon %}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
 
-<div class="container mx-auto mt-8">
-<div class="md:-mx-2 md:-mt-5 md:flex md:flex-wrap">
+<section class="py-16 bg-surface-muted border-y border-surface-subtle">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-wrap items-center justify-center gap-3">
+            {% set badges = ['Twig', 'Tailwind CSS', 'Alpine.js', 'Laravel Mix', 'October CMS', 'Docker', 'GCP Cloud Run'] %}
+            {% for badge in badges %}
+                {% partial 'components/badge' label=badge %}
+            {% endfor %}
+        </div>
+    </div>
+</section>
 
-<div class="md:w-1/4 md:px-2">
-  <div>Primary color set</div>
-  <div class="flex items-center mt-5">
-    <div class="h-12 w-12 rounded-lg shadow-inner bg-primary-lightest"></div>
-    <div class="ml-2 text-gray-800 text-xs leading-none pl-1">
-      <div class="font-semibold">bg-primary-lightest</div>
-      <div class="font-semibold text-primary-lightest my-1">text-primary-lightest</div>
-      <div class="mt-1 font-normal opacity-75">#079BFB</div>
+<section class="py-20 bg-surface">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-2xl">
+        {% partial 'components/section-heading'
+            eyebrow='Interactive'
+            title='Alpine.js in action'
+            subtitle='Click the tabs to see live component state changes.'
+        %}
+        <div
+            x-data="{ tab: 'design' }"
+            class="p-6 rounded-xl border border-surface-subtle bg-surface shadow-soft"
+        >
+            <div class="flex gap-2 mb-6">
+                {% set tabs = [
+                    { id: 'design', label: 'Design' },
+                    { id: 'dev', label: 'Development' },
+                    { id: 'deploy', label: 'Deploy' }
+                ] %}
+                {% for t in tabs %}
+                    <button
+                        @click="tab = '{{ t.id }}'"
+                        :class="tab === '{{ t.id }}' ? 'bg-accent text-white' : 'text-ink-muted hover:bg-surface-subtle'"
+                        class="px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200"
+                    >{{ t.label }}</button>
+                {% endfor %}
+            </div>
+            <div x-show="tab === 'design'" x-transition class="text-ink-muted">
+                <p>Token-based colors, reusable Twig partials, and subtle CSS animations create a cohesive minimal aesthetic.</p>
+            </div>
+            <div x-show="tab === 'dev'" x-cloak x-transition class="text-ink-muted">
+                <p>Local hot-reload via Laravel Mix and BrowserSync. Edit templates, see changes instantly at localhost:3000.</p>
+            </div>
+            <div x-show="tab === 'deploy'" x-cloak x-transition class="text-ink-muted">
+                <p>Push to GitHub → GitHub Actions builds Docker → deploys to GCP Cloud Run in Mumbai (asia-south1).</p>
+            </div>
+        </div>
     </div>
-  </div>
-  <div class="flex items-center mt-5">
-    <div class="h-12 w-12 rounded-lg shadow-inner bg-primary-light"></div>
-    <div class="ml-2 text-gray-800 text-xs leading-none pl-1">
-      <div class="font-semibold">bg-primary-light</div>
-      <div class="font-semibold text-primary-light my-1">text-primary-light</div>
-      <div class="mt-1 font-normal opacity-75">#007BCB</div>
-    </div>
-  </div>
-  <div class="flex items-center mt-5">
-    <div class="h-12 w-12 rounded-lg shadow-inner bg-primary"></div>
-    <div class="ml-2 text-gray-800 text-xs leading-none pl-1">
-      <div class="font-semibold">bg-primary</div>
-      <div class="font-semibold text-primary my-1">text-primary</div>
-      <div class="mt-1 font-normal opacity-75">#005C97</div>
-    </div>
-  </div>
-  <div class="flex items-center mt-5">
-    <div class="h-12 w-12 rounded-lg shadow-inner bg-primary-dark"></div>
-    <div class="ml-2 text-gray-800 text-xs leading-none pl-1">
-      <div class="font-semibold">bg-primary-dark</div>
-      <div class="font-semibold text-primary-dark my-1">text-primary-dark</div>
-      <div class="mt-1 font-normal opacity-75">#004A7A</div>
-    </div>
-  </div>
-  <div class="flex items-center mt-5">
-    <div class="h-12 w-12 rounded-lg shadow-inner bg-primary-darkest"></div>
-    <div class="ml-2 text-gray-800 text-xs leading-none pl-1">
-      <div class="font-semibold">bg-primary-darkest</div>
-      <div class="font-semibold text-primary-darkest my-1">text-primary-darkest</div>
-      <div class="mt-1 font-normal opacity-75">#00375B</div>
-    </div>
-  </div>
-</div>
+</section>
 
-<div class="md:w-1/4 md:px-2">
-  <div>secondary color set</div>
-  <div class="flex items-center mt-5">
-    <div class="h-12 w-12 rounded-lg shadow-inner bg-secondary-lightest"></div>
-    <div class="ml-2 text-gray-800 text-xs leading-none pl-1">
-      <div class="font-semibold">bg-secondary-lightest</div>
-      <div class="font-semibold text-secondary-lightest my-1">text-secondary-lightest</div>
-      <div class="mt-1 font-normal opacity-75">#FF8D8D</div>
+<section class="py-20 bg-surface-muted">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-2 gap-8 md:grid-cols-4">
+            {% partial 'components/stat' value='4' label='Pages' %}
+            {% partial 'components/stat' value='5' label='Components' %}
+            {% partial 'components/stat' value='3' label='Layouts' %}
+            {% partial 'components/stat' value='1' label='CI/CD Pipeline' %}
+        </div>
     </div>
-  </div>
-  <div class="flex items-center mt-5">
-    <div class="h-12 w-12 rounded-lg shadow-inner bg-secondary-light"></div>
-    <div class="ml-2 text-gray-800 text-xs leading-none pl-1">
-      <div class="font-semibold">bg-secondary-light</div>
-      <div class="font-semibold text-secondary-light my-1">text-secondary-light</div>
-      <div class="mt-1 font-normal opacity-75">#DD5656</div>
-    </div>
-  </div>
-  <div class="flex items-center mt-5">
-    <div class="h-12 w-12 rounded-lg shadow-inner bg-secondary"></div>
-    <div class="ml-2 text-gray-800 text-xs leading-none pl-1">
-      <div class="font-semibold">bg-secondary</div>
-      <div class="font-semibold text-secondary my-1">text-secondary</div>
-      <div class="mt-1 font-normal opacity-75">#C53030</div>
-    </div>
-  </div>
-  <div class="flex items-center mt-5">
-    <div class="h-12 w-12 rounded-lg shadow-inner bg-secondary-dark"></div>
-    <div class="ml-2 text-gray-800 text-xs leading-none pl-1">
-      <div class="font-semibold">bg-secondary-dark</div>
-      <div class="font-semibold text-secondary-dark my-1">text-secondary-dark</div>
-      <div class="mt-1 font-normal opacity-75">#9F1717</div>
-    </div>
-  </div>
-  <div class="flex items-center mt-5">
-    <div class="h-12 w-12 rounded-lg shadow-inner bg-secondary-darkest"></div>
-    <div class="ml-2 text-gray-800 text-xs leading-none pl-1">
-      <div class="font-semibold">bg-secondary-darkest</div>
-      <div class="font-semibold text-secondary-darkest my-1">text-secondary-darkest</div>
-      <div class="mt-1 font-normal opacity-75">#760000</div>
-    </div>
-  </div>
-</div>
-
-<div class="md:w-1/4 md:px-2">
-  <div>tertiary color set</div>
-  <div class="flex items-center mt-5">
-    <div class="h-12 w-12 rounded-lg shadow-inner bg-tertiary-lightest"></div>
-    <div class="ml-2 text-gray-800 text-xs leading-none pl-1">
-      <div class="font-semibold">bg-tertiary-lightest</div>
-      <div class="font-semibold text-tertiary-lightest my-1">text-tertiary-lightest</div>
-      <div class="mt-1 font-normal opacity-75">#FFE9BE</div>
-    </div>
-  </div>
-  <div class="flex items-center mt-5">
-    <div class="h-12 w-12 rounded-lg shadow-inner bg-tertiary-light"></div>
-    <div class="ml-2 text-gray-800 text-xs leading-none pl-1">
-      <div class="font-semibold">bg-tertiary-light</div>
-      <div class="font-semibold text-tertiary-light my-1">text-tertiary-light</div>
-      <div class="mt-1 font-normal opacity-75">#EEC46E</div>
-    </div>
-  </div>
-  <div class="flex items-center mt-5">
-    <div class="h-12 w-12 rounded-lg shadow-inner bg-tertiary"></div>
-    <div class="ml-2 text-gray-800 text-xs leading-none pl-1">
-      <div class="font-semibold">bg-tertiary</div>
-      <div class="font-semibold text-tertiary my-1">text-tertiary</div>
-      <div class="mt-1 font-normal opacity-75">#C59431</div>
-    </div>
-  </div>
-  <div class="flex items-center mt-5">
-    <div class="h-12 w-12 rounded-lg shadow-inner bg-tertiary-dark"></div>
-    <div class="ml-2 text-gray-800 text-xs leading-none pl-1">
-      <div class="font-semibold">bg-tertiary-dark</div>
-      <div class="font-semibold text-tertiary-dark my-1">text-tertiary-dark</div>
-      <div class="mt-1 font-normal opacity-75">#8F630C</div>
-    </div>
-  </div>
-  <div class="flex items-center mt-5">
-    <div class="h-12 w-12 rounded-lg shadow-inner bg-tertiary-darkest"></div>
-    <div class="ml-2 text-gray-800 text-xs leading-none pl-1">
-      <div class="font-semibold">bg-tertiary-darkest</div>
-      <div class="font-semibold text-tertiary-darkest my-1">text-tertiary-darkest</div>
-      <div class="mt-1 font-normal opacity-75">#493100</div>
-    </div>
-  </div>
-</div>
-
-<div class="md:w-1/4 md:px-2">
-  <div>Deprecated greyscale color set</div>
-  <div class="flex items-center mt-5">
-    <div class="h-12 w-12 rounded-lg shadow-inner bg-grey-lightest"></div>
-    <div class="ml-2 text-gray-800 text-xs leading-none pl-1">
-      <div class="font-semibold">bg-grey-lightest</div>
-      <div class="font-semibold text-grey-lightest my-1">text-grey-lightest</div>
-      <div class="mt-1 font-normal opacity-75">#EEE</div>
-    </div>
-  </div>
-  <div class="flex items-center mt-5">
-    <div class="h-12 w-12 rounded-lg shadow-inner bg-grey-light"></div>
-    <div class="ml-2 text-gray-800 text-xs leading-none pl-1">
-      <div class="font-semibold">bg-grey-light</div>
-      <div class="font-semibold text-grey-light my-1">text-grey-light</div>
-      <div class="mt-1 font-normal opacity-75">#BBB</div>
-    </div>
-  </div>
-  <div class="flex items-center mt-5">
-    <div class="h-12 w-12 rounded-lg shadow-inner bg-grey"></div>
-    <div class="ml-2 text-gray-800 text-xs leading-none pl-1">
-      <div class="font-semibold">bg-grey</div>
-      <div class="font-semibold text-grey my-1">text-grey</div>
-      <div class="mt-1 font-normal opacity-75">#888</div>
-    </div>
-  </div>
-  <div class="flex items-center mt-5">
-    <div class="h-12 w-12 rounded-lg shadow-inner bg-grey-dark"></div>
-    <div class="ml-2 text-gray-800 text-xs leading-none pl-1">
-      <div class="font-semibold">bg-grey-dark</div>
-      <div class="font-semibold text-grey-dark my-1">text-grey-dark</div>
-      <div class="mt-1 font-normal opacity-75">#555</div>
-    </div>
-  </div>
-  <div class="flex items-center mt-5">
-    <div class="h-12 w-12 rounded-lg shadow-inner bg-grey-darkest"></div>
-    <div class="ml-2 text-gray-800 text-xs leading-none pl-1">
-      <div class="font-semibold">bg-grey-darkest</div>
-      <div class="font-semibold text-grey-darkest my-1">text-grey-darkest</div>
-      <div class="mt-1 font-normal opacity-75">#222</div>
-    </div>
-  </div>
-</div>
-
-</div>
-</div>
-
-<div class="container mx-auto mt-8 border-t border-grey-light">
-<div class="md:flex md:flex-wrap">
-
-<div class="md:w-1/4 md:px-2">
-  <div>Standard gray-100..900</div>
-  <div class="flex items-center mt-5">
-    <div class="h-12 w-12 rounded-lg shadow-inner bg-gray-100"></div>
-    <div class="ml-2 text-gray-800 text-xs leading-none pl-1">
-      <div class="font-semibold">bg-gray-100</div>
-      <div class="font-semibold text-gray-100 my-1 bg-gray-900">text-gray-100</div>
-      <div class="mt-1 font-normal opacity-75">#f7fafc</div>
-    </div>
-  </div>
-  <div class="flex items-center mt-5">
-    <div class="h-12 w-12 rounded-lg shadow-inner bg-gray-200"></div>
-    <div class="ml-2 text-gray-800 text-xs leading-none pl-1">
-      <div class="font-semibold">bg-gray-200</div>
-      <div class="font-semibold text-gray-200 my-1 bg-gray-900">text-gray-200</div>
-      <div class="mt-1 font-normal opacity-75">#edf2f7</div>
-    </div>
-  </div>
-</div>
-
-<div class="md:w-1/4 md:px-2">
-  <div>&nbsp;</div>
-  <div class="flex items-center mt-5">
-    <div class="h-12 w-12 rounded-lg shadow-inner bg-gray-300"></div>
-    <div class="ml-2 text-gray-800 text-xs leading-none pl-1">
-      <div class="font-semibold">bg-gray-300</div>
-      <div class="font-semibold text-gray-300 my-1 bg-gray-900">text-gray-300</div>
-      <div class="mt-1 font-normal opacity-75">#e2e8f0</div>
-    </div>
-  </div>
-  <div class="flex items-center mt-5">
-    <div class="h-12 w-12 rounded-lg shadow-inner bg-gray-400"></div>
-    <div class="ml-2 text-gray-800 text-xs leading-none pl-1">
-      <div class="font-semibold">bg-gray-400</div>
-      <div class="font-semibold text-gray-400 my-1">text-gray-400</div>
-      <div class="mt-1 font-normal opacity-75">#cbd5e0</div>
-    </div>
-  </div>
-</div>
-
-<div class="md:w-1/4 md:px-2">
-  <div>&nbsp;</div>
-  <div class="flex items-center mt-5">
-    <div class="h-12 w-12 rounded-lg shadow-inner bg-gray-500"></div>
-    <div class="ml-2 text-gray-800 text-xs leading-none pl-1">
-      <div class="font-semibold">bg-gray-500</div>
-      <div class="font-semibold text-gray-500 my-1">text-gray-500</div>
-      <div class="mt-1 font-normal opacity-75">#a0aec0</div>
-    </div>
-  </div>
-  <div class="flex items-center mt-5">
-    <div class="h-12 w-12 rounded-lg shadow-inner bg-gray-600"></div>
-    <div class="ml-2 text-gray-800 text-xs leading-none pl-1">
-      <div class="font-semibold">bg-gray-600</div>
-      <div class="font-semibold text-gray-600 my-1">text-gray-600</div>
-      <div class="mt-1 font-normal opacity-75">#718096</div>
-    </div>
-  </div>
-</div>
-
-<div class="md:w-1/4 md:px-2">
-  <div>&nbsp;</div>
-  <div class="flex items-center mt-5">
-    <div class="h-12 w-12 rounded-lg shadow-inner bg-gray-700"></div>
-    <div class="ml-2 text-gray-800 text-xs leading-none pl-1">
-      <div class="font-semibold">bg-gray-700</div>
-      <div class="font-semibold text-gray-700 my-1">text-gray-700</div>
-      <div class="mt-1 font-normal opacity-75">#4a5568</div>
-    </div>
-  </div>
-  <div class="flex items-center mt-5">
-    <div class="h-12 w-12 rounded-lg shadow-inner bg-gray-800"></div>
-    <div class="ml-2 text-gray-800 text-xs leading-none pl-1">
-      <div class="font-semibold">bg-gray-800</div>
-      <div class="font-semibold text-gray-800 my-1">text-gray-800</div>
-      <div class="mt-1 font-normal opacity-75">#2d3748</div>
-    </div>
-  </div>
-</div>
-
-</div>
-</div>
+</section>

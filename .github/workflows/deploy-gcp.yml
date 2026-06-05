@@ -8,6 +8,8 @@ on:
 env:
   SERVICE_NAME: laravelmix-october
   IMAGE_NAME: laravelmix-october
+  GCP_PROJECT_ID: valneetrivial
+  GCP_REGION: asia-south1
 
 jobs:
   deploy:
@@ -31,26 +33,20 @@ jobs:
 
       - name: Configure Docker for Artifact Registry
         run: |
-          gcloud auth configure-docker ${{ secrets.GCP_REGION }}-docker.pkg.dev --quiet
+          gcloud auth configure-docker ${{ env.GCP_REGION }}-docker.pkg.dev --quiet
 
       - name: Build and push Docker image
-        env:
-          PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
-          REGION: ${{ secrets.GCP_REGION }}
         run: |
-          IMAGE="${REGION}-docker.pkg.dev/${PROJECT_ID}/laravelmix/${IMAGE_NAME}:${GITHUB_SHA}"
+          IMAGE="${{ env.GCP_REGION }}-docker.pkg.dev/${{ env.GCP_PROJECT_ID }}/laravelmix/${{ env.IMAGE_NAME }}:${{ github.sha }}"
           docker build -t "${IMAGE}" .
           docker push "${IMAGE}"
           echo "IMAGE=${IMAGE}" >> "$GITHUB_ENV"
 
       - name: Deploy to Cloud Run
-        env:
-          PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
-          REGION: ${{ secrets.GCP_REGION }}
         run: |
-          gcloud run deploy "${SERVICE_NAME}" \
-            --project "${PROJECT_ID}" \
-            --region "${REGION}" \
+          gcloud run deploy "${{ env.SERVICE_NAME }}" \
+            --project "${{ env.GCP_PROJECT_ID }}" \
+            --region "${{ env.GCP_REGION }}" \
             --image "${IMAGE}" \
             --platform managed \
             --allow-unauthenticated \
@@ -62,13 +58,31 @@ jobs:
             --set-env-vars "APP_ENV=production,APP_DEBUG=false,ACTIVE_THEME=laravelmix,LOG_CHANNEL=stderr,APP_KEY=${{ secrets.APP_KEY }},DB_CONNECTION=sqlite,DB_DATABASE=/var/www/html/storage/database.sqlite" \
             --quiet
 
-      - name: Show service URL
-        env:
-          PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
-          REGION: ${{ secrets.GCP_REGION }}
+      - name: Get service URL and update APP_URL
+        id: deploy
         run: |
-          URL=$(gcloud run services describe "${SERVICE_NAME}" \
-            --project "${PROJECT_ID}" \
-            --region "${REGION}" \
+          URL=$(gcloud run services describe "${{ env.SERVICE_NAME }}" \
+            --project "${{ env.GCP_PROJECT_ID }}" \
+            --region "${{ env.GCP_REGION }}" \
             --format 'value(status.url)')
+          echo "url=${URL}" >> "$GITHUB_OUTPUT"
+          gcloud run services update "${{ env.SERVICE_NAME }}" \
+            --project "${{ env.GCP_PROJECT_ID }}" \
+            --region "${{ env.GCP_REGION }}" \
+            --update-env-vars "APP_URL=${URL}" \
+            --quiet
           echo "Deployed to: ${URL}"
+
+      - name: Deployment summary
+        run: |
+          echo "## Deployment successful" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "**Live URL:** ${{ steps.deploy.outputs.url }}" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "| Setting | Value |" >> "$GITHUB_STEP_SUMMARY"
+          echo "|---|---|" >> "$GITHUB_STEP_SUMMARY"
+          echo "| Project | \`${{ env.GCP_PROJECT_ID }}\` |" >> "$GITHUB_STEP_SUMMARY"
+          echo "| Region | \`${{ env.GCP_REGION }}\` |" >> "$GITHUB_STEP_SUMMARY"
+          echo "| Service | \`${{ env.SERVICE_NAME }}\` |" >> "$GITHUB_STEP_SUMMARY"
+          echo "| Theme | \`laravelmix\` |" >> "$GITHUB_STEP_SUMMARY"
+          echo "| Commit | \`${{ github.sha }}\` |" >> "$GITHUB_STEP_SUMMARY"

@@ -1,65 +1,73 @@
 module.exports = {
-	purge: [
-	'./assets/src/**/*.vue',
-	'./layouts/**/*.htm',
-	'./pages/**/*.htm',
-	'./partials/**/*.htm',
+    purge: [
+        './assets/src/**/*.vue',
+        './layouts/**/*.htm',
+        './pages/**/*.htm',
+        './partials/**/*.htm',
     ],
-    plugins: [
-        //require('@tailwindcss/typography'), // Removed for compatibility reasons
-    ],
+    plugins: [],
     theme: {
         colors: {
-            primary: {
-                lightest: '#079BFB',
-                light: '#007BCB',
-                DEFAULT: '#005C97',
-                dark: '#004A7A',
-                darkest: '#00375B'
+            surface: {
+                DEFAULT: '#FFFFFF',
+                muted: '#F8FAFC',
+                subtle: '#F1F5F9',
             },
-            secondary: {
-                lightest: '#FF8D8D',
-                light: '#DD5656',
-                DEFAULT: '#C53030',
-                dark: '#9F1717',
-                darkest: '#760000'
+            ink: {
+                DEFAULT: '#0F172A',
+                muted: '#64748B',
+                faint: '#94A3B8',
             },
-            tertiary: {
-                lightest: '#FFE9BE',
-                light: '#EEC46E',
-                DEFAULT: '#C59431',
-                dark: '#8F630C',
-                darkest: '#493100'
+            accent: {
+                DEFAULT: '#6366F1',
+                light: '#EEF2FF',
+                dark: '#4338CA',
             },
-            grey: {
-                lightest: '#EEE',
-                light: '#BBB',
-                DEFAULT: '#888',
-                dark: '#555',
-                darkest: '#222'
+            error: {
+                DEFAULT: '#EF4444',
+                light: '#FEE2E2',
             },
-            gray: {
-                '100': '#f5f5f5',
-                '200': '#eeeeee',
-                '300': '#e0e0e0',
-                '400': '#bdbdbd',
-                '500': '#9e9e9e',
-                '600': '#757575',
-                '700': '#616161',
-                '800': '#424242',
-                '900': '#212121',
-            },
-            error: '#FF6363',
             white: '#FFFFFF',
             black: '#000000',
-            red:   '#FF0000',
-            green: '#00FF00',
-            blue:  '#0000FF',
-            transparent: 'transparent'
+            transparent: 'transparent',
         },
         fontFamily: {
-            body: ['Poppins','sans-serif'],
-            display: ['Poppins', 'sans-serif']
-        }
-    }
-}
+            body: ['Poppins', 'sans-serif'],
+            display: ['Poppins', 'sans-serif'],
+        },
+        extend: {
+            transitionTimingFunction: {
+                smooth: 'cubic-bezier(0.4, 0, 0.2, 1)',
+            },
+            animation: {
+                fadeUp: 'fadeUp 0.6s ease-out forwards',
+                fadeIn: 'fadeIn 0.5s ease-out forwards',
+                slideIn: 'slideIn 0.5s ease-out forwards',
+                shake: 'shake 0.4s ease-in-out',
+            },
+            keyframes: {
+                fadeUp: {
+                    '0%': { opacity: '0', transform: 'translateY(16px)' },
+                    '100%': { opacity: '1', transform: 'translateY(0)' },
+                },
+                fadeIn: {
+                    '0%': { opacity: '0' },
+                    '100%': { opacity: '1' },
+                },
+                slideIn: {
+                    '0%': { opacity: '0', transform: 'translateX(-12px)' },
+                    '100%': { opacity: '1', transform: 'translateX(0)' },
+                },
+                shake: {
+                    '0%, 100%': { transform: 'translateX(0)' },
+                    '25%': { transform: 'translateX(-6px)' },
+                    '75%': { transform: 'translateX(6px)' },
+                },
+            },
+            boxShadow: {
+                soft: '0 1px 3px 0 rgba(15, 23, 42, 0.06), 0 1px 2px -1px rgba(15, 23, 42, 0.06)',
+                card: '0 4px 6px -1px rgba(15, 23, 42, 0.05), 0 2px 4px -2px rgba(15, 23, 42, 0.05)',
+            },
+        },
+    },
+};
