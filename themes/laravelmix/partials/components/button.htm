@@ -1,14 +1,14 @@
 {#
-  Variants: primary (clay), outline, ghost
+  Variants: primary, outline, ghost
 #}
 {% set variant = variant|default('primary') %}
-{% set base = 'inline-flex items-center justify-center px-6 py-3 text-sm font-medium rounded-xl transition-all duration-300 font-body' %}
+{% set base = 'inline-flex items-center justify-center px-6 py-3 text-sm font-semibold rounded-lg transition-all duration-200 font-body uppercase tracking-wide' %}
 {% if variant == 'primary' %}
-    {% set variantClass = 'bg-clay text-white hover:bg-clay-dark shadow-soft cta-magnetic' %}
+    {% set variantClass = 'bg-accent text-accent-fg border border-accent cta-magnetic' %}
 {% elseif variant == 'outline' %}
-    {% set variantClass = 'border border-ink/10 text-ink hover:border-clay hover:text-clay bg-surface' %}
+    {% set variantClass = 'border border-border text-fg hover:border-accent hover:text-accent bg-surface' %}
 {% else %}
-    {% set variantClass = 'text-ink-muted hover:text-ink hover:bg-surface-sand' %}
+    {% set variantClass = 'text-muted hover:text-fg hover:bg-surface-2' %}
 {% endif %}
 {% if href %}
 <a href="{{ href }}" class="{{ base }} {{ variantClass }} {{ class|default('') }}" data-sound>{{ label }}</a>

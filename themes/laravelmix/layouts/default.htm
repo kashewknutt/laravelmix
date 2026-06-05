@@ -6,14 +6,15 @@ description = "Default layout"
 <head>
     {% partial 'site/meta' %}
 </head>
-<body class="font-body text-ink bg-paper antialiased paper-grain">
+<body class="font-body antialiased noise">
     <div class="flex flex-col min-h-screen">
         {% partial 'site/header' %}
-        <main class="flex-grow pt-16 lg:pt-[4.5rem]">
+        <main class="flex-grow pt-16 lg:pt-20">
             {% page %}
         </main>
         {% partial 'site/footer' %}
     </div>
+    <audio id="ambient-audio" loop preload="auto" src="{{ 'assets/dist/audio/ambient.mp3'|theme }}" style="display:none"></audio>
     {% partial 'site/scripts' %}
 </body>
 </html>

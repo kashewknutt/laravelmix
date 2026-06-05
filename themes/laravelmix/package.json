@@ -1,7 +1,7 @@
 {
-  "name": "tabularasa",
-  "version": "2.0.0",
-  "description": "A simplest TailwindCss boilerplate theme - see git+https://github.com/cjkpl/oc-tabularas-theme",
+  "name": "laravelmix",
+  "version": "3.0.0",
+  "description": "ACME by Valnee — dark editorial theme",
   "main": "app.js",
   "scripts": {
     "dev": "npm run development",
@@ -11,7 +11,7 @@
     "prod": "npm run production",
     "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
   },
-  "author": "'CJK.PL'",
+  "author": "kashewknutt",
   "license": "MIT",
   "devDependencies": {
     "@babel/core": "^7.12.3",
@@ -27,11 +27,11 @@
     "vue-template-compiler": "^2.6.12"
   },
   "dependencies": {
+    "@fontsource/bricolage-grotesque": "^5.2.5",
+    "@fontsource/hanken-grotesk": "^5.2.5",
     "@tailwindcss/typography": "^0.3.1",
     "alpinejs": "^2.8.2",
     "cross-env": "^7.0.2",
-    "@fontsource/fraunces": "^5.2.5",
-    "@fontsource/hanken-grotesk": "^5.2.5",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.0.1",
     "vue": "^2.6.12"
   }

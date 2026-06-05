@@ -5,66 +5,34 @@ meta_title = "Home"
 meta_description = "Premium custom software experiences built by Valnee Solutions. Clean views, immersive design, launch-ready systems."
 is_hidden = 0
 ==
-<section class="relative min-h-screen flex items-center overflow-hidden bg-paper">
-    <div class="blob blob-blush w-[420px] h-[420px] -top-24 -left-24 animate-floatSlow" data-parallax="0.04"></div>
-    <div class="blob blob-sky w-[360px] h-[360px] top-1/4 -right-20 animate-float" data-parallax="0.06"></div>
-    <div class="blob blob-butter w-[280px] h-[280px] bottom-16 left-1/3 animate-floatSlow" data-parallax="0.03"></div>
-
+{# 1. Hero #}
+<section class="relative min-h-screen flex items-center overflow-hidden bg-bg hero-grid">
     <div class="container relative z-10 mx-auto px-4 pt-28 pb-32 sm:px-6 lg:px-8">
-        <div class="grid gap-16 lg:grid-cols-2 lg:gap-12 items-center">
-            <div>
-                <p class="eyebrow mb-6 reveal">Crafted by Valnee Solutions</p>
-                <h1 class="font-display text-4xl font-medium leading-[1.15] tracking-tight text-ink sm:text-5xl lg:text-[3.25rem] reveal reveal-delay-1">
-                    Software that feels custom from the first pixel.
-                </h1>
-                <p class="mt-6 text-lg text-ink-muted max-w-lg leading-relaxed font-body reveal reveal-delay-2">
-                    Clean views, customized exactly as you imagine. Interfaces that feel alive,
-                    load fast, and convert attention into trust.
-                </p>
-                <div class="flex flex-wrap gap-4 mt-10 reveal reveal-delay-3">
-                    {% partial 'components/button' label='Build something unforgettable' href='/contact' variant='primary' %}
-                    {% partial 'components/button' label='Explore the experience' href='/showcase' variant='outline' %}
-                </div>
+        <div class="max-w-5xl">
+            <p class="eyebrow mb-8 reveal">Crafted by Valnee Solutions</p>
+            <h1 class="display-hero text-5xl sm:text-6xl lg:text-8xl text-fg reveal reveal-delay-1">
+                Software that feels custom from the first pixel.
+            </h1>
+            <p class="mt-8 text-lg sm:text-xl text-muted max-w-2xl leading-relaxed font-body reveal reveal-delay-2">
+                Clean views, customized exactly as you imagine. Interfaces that feel alive,
+                load fast, and convert attention into trust.
+            </p>
+            <div class="flex flex-wrap gap-4 mt-12 reveal reveal-delay-3">
+                {% partial 'components/button' label='Build something unforgettable' href='/contact' variant='primary' %}
+                {% partial 'components/button' label='Explore the experience' href='/showcase' variant='outline' %}
             </div>
-
-            <div class="relative hidden lg:block reveal reveal-delay-2">
-                <div data-parallax="0.05" class="parallax-layer absolute -top-6 -right-2 w-64 p-5 rounded-2xl bg-surface border border-ink/5 shadow-card animate-float offset-card offset-card-sky">
-                    <div class="flex items-center gap-2 mb-3">
-                        <div class="w-2.5 h-2.5 rounded-full bg-blush"></div>
-                        <div class="w-2.5 h-2.5 rounded-full bg-sage"></div>
-                        <div class="w-2.5 h-2.5 rounded-full bg-butter"></div>
-                    </div>
-                    <div class="space-y-2">
-                        <div class="h-2 w-full rounded bg-surface-sand"></div>
-                        <div class="h-2 w-4/5 rounded bg-surface-sand"></div>
-                        <div class="h-10 w-full rounded-xl bg-clay-soft mt-3"></div>
-                    </div>
-                </div>
-                <div data-parallax="0.1" class="parallax-layer relative ml-10 mt-20 p-6 rounded-2xl bg-surface border border-ink/5 shadow-lift animate-floatSlow offset-card">
-                    <div class="text-xs text-ink-faint mb-4 uppercase tracking-widest font-body">Live preview</div>
-                    <div class="space-y-3">
-                        <div class="flex items-center gap-3">
-                            <div class="w-10 h-10 rounded-xl bg-clay-soft"></div>
-                            <div>
-                                <div class="h-2.5 w-24 rounded bg-surface-sand"></div>
-                                <div class="h-2 w-16 rounded bg-surface-sand mt-1.5"></div>
-                            </div>
-                        </div>
-                        <div class="grid grid-cols-3 gap-2 mt-4">
-                            <div class="h-14 rounded-lg bg-blush/60"></div>
-                            <div class="h-14 rounded-lg bg-sage/60"></div>
-                            <div class="h-14 rounded-lg bg-clay-soft"></div>
-                        </div>
-                        <div class="h-10 w-full rounded-xl bg-clay mt-2"></div>
-                    </div>
-                </div>
-                <div data-parallax="0.07" class="parallax-layer absolute -bottom-2 -left-6 w-44 p-4 rounded-xl bg-surface border border-ink/5 shadow-soft">
-                    <div class="flex items-center gap-2">
-                        <div class="w-8 h-8 rounded-full bg-sage flex items-center justify-center text-sage text-xs font-body" style="color:#4a7c59">✓</div>
-                        <div>
-                            <div class="text-xs text-ink-faint font-body">Engagement</div>
-                            <div class="text-lg font-display font-medium text-ink">+340%</div>
-                        </div>
+        </div>
+        <div class="hidden lg:block absolute right-8 top-1/2 -translate-y-1/2 w-72 reveal reveal-delay-4" data-parallax="0.06">
+            <div class="offset-panel p-6 rounded-lg">
+                <div class="text-xs text-muted uppercase tracking-widest mb-4 font-body">Live preview</div>
+                <div class="space-y-3">
+                    <div class="h-2 w-full rounded bg-surface-2"></div>
+                    <div class="h-2 w-4/5 rounded bg-surface-2"></div>
+                    <div class="h-12 w-full rounded-lg bg-accent mt-4"></div>
+                    <div class="grid grid-cols-3 gap-2 mt-4">
+                        <div class="h-14 rounded bg-surface-2 border border-border"></div>
+                        <div class="h-14 rounded bg-surface-2 border border-border"></div>
+                        <div class="h-14 rounded bg-accent border border-accent"></div>
                     </div>
                 </div>
             </div>
@@ -72,114 +40,218 @@ is_hidden = 0
     </div>
 </section>
 
-<section class="relative py-24 bg-surface overflow-hidden">
-    <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl text-center">
-        <p class="eyebrow mb-4 reveal">The Valnee difference</p>
-        <h2 class="font-display text-3xl font-medium tracking-tight text-ink sm:text-4xl lg:text-[2.75rem] leading-tight reveal reveal-delay-1">
-            This site demonstrates the limits of web development.<br>
-            <span class="text-clay">Then breaks them for you.</span>
-        </h2>
-        <p class="mt-6 text-lg text-ink-muted max-w-2xl mx-auto font-body leading-relaxed reveal reveal-delay-2">
-            Your product should not look templated. It should feel inevitable.
-            Valnee builds experiences people remember.
-        </p>
-    </div>
-</section>
-
-<section class="py-24 bg-surface-sand">
+{# 2. The problem — numbered 01/02/03 #}
+<section class="py-24 bg-surface border-y border-border">
     <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-16">
-            <p class="eyebrow mb-3 reveal">What you get</p>
-            <h2 class="font-display text-3xl font-medium text-ink sm:text-4xl reveal reveal-delay-1">Built to impress. Built to perform.</h2>
+        <div class="max-w-3xl mb-16">
+            <p class="eyebrow mb-4 reveal">The problem</p>
+            <h2 class="font-display text-3xl sm:text-4xl font-bold uppercase tracking-tight text-fg reveal reveal-delay-1">
+                Your product shouldn&apos;t look like everyone else&apos;s.
+            </h2>
         </div>
-        <div class="grid gap-8 md:grid-cols-3">
-            {% set outcomes = [
-                { icon: '◆', title: 'Clean Views', body: 'Customized exactly as you imagine. Every screen tailored to your brand, your users, your story.', offset: 'offset-card-sky' },
-                { icon: '◎', title: 'Motion With Meaning', body: 'Animations that guide attention, build trust, and make your product feel alive — never gimmicky.', offset: 'offset-card-sage' },
-                { icon: '▲', title: 'Launch-Ready Systems', body: 'From polished interface to deployed product. Fast, reliable, and ready for real users on day one.', offset: 'offset-card-lilac' }
+        <div class="grid gap-6 md:grid-cols-3">
+            {% set problems = [
+                { num: '01', title: 'Templated UIs', body: 'Off-the-shelf themes make premium brands look cheap. Your users notice — and leave.' },
+                { num: '02', title: 'Slow Agencies', body: 'Weeks of meetings, months of delays. Momentum dies while competitors ship.' },
+                { num: '03', title: 'Disappearing Builders', body: 'Freelancers vanish after launch. You\'re stuck maintaining code you never owned.' }
             ] %}
-            {% for outcome in outcomes %}
-                <div class="reveal reveal-delay-{{ loop.index }} offset-card {{ outcome.offset }} p-8 rounded-2xl card-lift">
-                    <div class="flex items-center justify-center w-12 h-12 mb-6 text-lg rounded-xl bg-clay-soft text-clay font-display">
-                        {{ outcome.icon }}
-                    </div>
-                    <h3 class="font-display text-xl font-medium text-ink">{{ outcome.title }}</h3>
-                    <p class="mt-3 text-ink-muted leading-relaxed font-body text-sm">{{ outcome.body }}</p>
+            {% for p in problems %}
+                <div class="reveal reveal-delay-{{ loop.index }} p-8 rounded-lg border border-border bg-bg card-lift">
+                    <span class="font-display text-4xl font-bold text-accent">{{ p.num }}</span>
+                    <h3 class="mt-4 font-display text-xl font-bold uppercase text-fg">{{ p.title }}</h3>
+                    <p class="mt-3 text-muted text-sm leading-relaxed font-body">{{ p.body }}</p>
                 </div>
             {% endfor %}
         </div>
     </div>
 </section>
 
-<section class="py-10 bg-surface border-y border-ink/5 overflow-hidden">
-    <div class="marquee-track">
-        {% set marqueeItems = ['Reliable Builds', 'Premium UX', 'Launch Fast', 'Own Your Code', 'Clean Views', 'Motion With Meaning', 'Conversion Focused', 'Built With Care'] %}
-        {% for item in marqueeItems %}
-            <span class="mx-8 text-sm font-medium tracking-widest uppercase text-ink-faint whitespace-nowrap font-body">{{ item }}</span>
-            <span class="mx-2 text-clay/40">·</span>
-        {% endfor %}
-        {% for item in marqueeItems %}
-            <span class="mx-8 text-sm font-medium tracking-widest uppercase text-ink-faint whitespace-nowrap font-body">{{ item }}</span>
-            <span class="mx-2 text-clay/40">·</span>
-        {% endfor %}
+{# 3. Why Valnee — Speed / Clarity / Certainty #}
+<section class="py-24 bg-bg">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <p class="eyebrow mb-3 reveal">Why Valnee</p>
+            <h2 class="font-display text-3xl sm:text-4xl font-bold uppercase text-fg reveal reveal-delay-1">Built different. Built to deliver.</h2>
+        </div>
+        <div class="grid gap-8 md:grid-cols-3">
+            {% set pillars = [
+                { title: 'Speed', body: 'Four-week average launch. No bloated process — just focused sprints that ship.' },
+                { title: 'Clarity', body: 'You always know where we are, what\'s next, and what it costs. Zero surprises.' },
+                { title: 'Certainty', body: 'You own every line of code. Full handoff, full documentation, full control.' }
+            ] %}
+            {% for pillar in pillars %}
+                <div class="reveal reveal-delay-{{ loop.index }} offset-panel p-8 rounded-lg card-lift">
+                    <h3 class="font-display text-2xl font-bold uppercase text-accent">{{ pillar.title }}</h3>
+                    <p class="mt-4 text-muted leading-relaxed font-body text-sm">{{ pillar.body }}</p>
+                </div>
+            {% endfor %}
+        </div>
     </div>
 </section>
 
-<section class="relative py-32 bg-surface overflow-hidden">
-    <div class="blob blob-lilac w-80 h-80 top-0 right-0 opacity-40" data-parallax="0.05"></div>
-    <div class="container relative mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid gap-16 lg:grid-cols-2 items-center">
-            <div class="reveal">
-                <p class="eyebrow mb-4">Proof of craft</p>
-                <h2 class="font-display text-3xl font-medium text-ink sm:text-4xl leading-tight">
-                    Depth you can feel.<br>Details you can trust.
-                </h2>
-                <p class="mt-6 text-ink-muted leading-relaxed font-body">
-                    Layered interfaces, scroll-driven motion, and conversion-focused layouts —
-                    all working together to create an experience that sells before you say a word.
-                </p>
-                <a href="/showcase" class="inline-flex items-center mt-8 px-6 py-3 text-sm font-semibold text-clay rounded-xl border border-clay/30 hover:bg-clay-soft transition-all duration-300 font-body" data-sound>
-                    See it in action →
-                </a>
+{# 4. VS comparison #}
+<section class="py-24 bg-surface border-y border-border">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl">
+        <p class="eyebrow mb-4 text-center reveal">The comparison</p>
+        <h2 class="font-display text-3xl sm:text-4xl font-bold uppercase text-fg text-center mb-12 reveal reveal-delay-1">Valnee vs Others</h2>
+        <div class="grid md:grid-cols-2 gap-4 reveal reveal-delay-2">
+            <div class="vs-col rounded-lg p-6 bg-bg">
+                <h3 class="font-display font-bold uppercase text-muted mb-6">Others</h3>
+                <ul class="space-y-4 text-sm font-body text-muted">
+                    <li class="flex gap-3"><span class="text-error">✕</span> Template-based builds</li>
+                    <li class="flex gap-3"><span class="text-error">✕</span> 3–6 month timelines</li>
+                    <li class="flex gap-3"><span class="text-error">✕</span> Vendor lock-in</li>
+                    <li class="flex gap-3"><span class="text-error">✕</span> Generic motion &amp; UX</li>
+                    <li class="flex gap-3"><span class="text-error">✕</span> Disappears after launch</li>
+                </ul>
             </div>
-            <div class="relative reveal reveal-delay-2">
-                <div class="p-6 rounded-2xl bg-surface border border-ink/5 shadow-lift offset-card offset-card-butter">
-                    <div class="grid grid-cols-2 gap-4">
-                        <div class="p-4 rounded-xl bg-blush/50 border border-ink/5">
-                            <div class="font-display text-2xl font-medium text-ink">98%</div>
-                            <div class="text-xs text-ink-faint mt-1 font-body">Client satisfaction</div>
-                        </div>
-                        <div class="p-4 rounded-xl bg-sky/50 border border-ink/5">
-                            <div class="font-display text-2xl font-medium text-clay">4wk</div>
-                            <div class="text-xs text-ink-faint mt-1 font-body">Avg. launch time</div>
-                        </div>
-                        <div class="p-4 rounded-xl bg-sage/50 border border-ink/5">
-                            <div class="font-display text-2xl font-medium text-ink">100%</div>
-                            <div class="text-xs text-ink-faint mt-1 font-body">Code ownership</div>
-                        </div>
-                        <div class="p-4 rounded-xl bg-clay-soft border border-clay/20">
-                            <div class="font-display text-2xl font-medium text-clay">∞</div>
-                            <div class="text-xs text-ink-muted mt-1 font-body">Iterations included</div>
-                        </div>
-                    </div>
-                </div>
+            <div class="vs-highlight rounded-lg p-6">
+                <h3 class="font-display font-bold uppercase text-accent mb-6">Valnee</h3>
+                <ul class="space-y-4 text-sm font-body text-fg">
+                    <li class="flex gap-3"><span class="text-accent">✓</span> Custom from pixel one</li>
+                    <li class="flex gap-3"><span class="text-accent">✓</span> ~4 week average launch</li>
+                    <li class="flex gap-3"><span class="text-accent">✓</span> 100% code ownership</li>
+                    <li class="flex gap-3"><span class="text-accent">✓</span> Orchestrated, purposeful motion</li>
+                    <li class="flex gap-3"><span class="text-accent">✓</span> Full handoff &amp; support</li>
+                </ul>
             </div>
         </div>
     </div>
 </section>
 
-<section class="py-32 bg-surface-sand">
-    <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-3xl text-center">
-        <p class="eyebrow mb-4 reveal">The promise</p>
-        <h2 class="font-display text-3xl font-medium text-ink sm:text-4xl lg:text-5xl leading-tight reveal reveal-delay-1">
-            You bring the vision.<br>
-            <span class="text-clay">We build the experience people remember.</span>
+{# 5. Journey #}
+<section class="py-24 bg-bg hero-grid">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <p class="eyebrow mb-3 reveal">The journey</p>
+            <h2 class="font-display text-3xl sm:text-4xl font-bold uppercase text-fg reveal reveal-delay-1">From vision to launch</h2>
+        </div>
+        <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {% set steps = [
+                { step: '01', title: 'Align', body: 'We learn your brand, users, and goals. No assumptions — just clarity.' },
+                { step: '02', title: 'Define', body: 'Wireframes, flows, and a locked scope. You approve before we build.' },
+                { step: '03', title: 'Build', body: 'Focused sprints with weekly demos. You see progress, not promises.' },
+                { step: '04', title: 'Launch', body: 'Deployed, documented, and handed off. Your product, your code, live.' }
+            ] %}
+            {% for s in steps %}
+                <div class="reveal reveal-delay-{{ loop.index }} p-6 rounded-lg border border-border bg-surface card-lift">
+                    <span class="text-xs font-bold text-accent tracking-widest font-body">{{ s.step }}</span>
+                    <h3 class="mt-3 font-display text-xl font-bold uppercase text-fg">{{ s.title }}</h3>
+                    <p class="mt-2 text-sm text-muted font-body leading-relaxed">{{ s.body }}</p>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+{# 6. Work grid #}
+<section class="py-24 bg-surface border-y border-border">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between mb-12 gap-4">
+            <div>
+                <p class="eyebrow mb-3 reveal">Selected work</p>
+                <h2 class="font-display text-3xl sm:text-4xl font-bold uppercase text-fg reveal reveal-delay-1">ACME case studies</h2>
+            </div>
+            <a href="/showcase" class="text-sm font-semibold text-accent uppercase tracking-wide font-body reveal" data-sound>View experience lab →</a>
+        </div>
+        <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {% set work = [
+                { title: 'ACME Commerce', tag: 'E-commerce', metric: '+340% engagement' },
+                { title: 'ACME Dashboard', tag: 'SaaS', metric: '4wk launch' },
+                { title: 'ACME Mobile', tag: 'App shell', metric: '98% satisfaction' },
+                { title: 'ACME Portal', tag: 'B2B', metric: '100% ownership' },
+                { title: 'ACME Landing', tag: 'Marketing', metric: '2.1s load' },
+                { title: 'ACME Admin', tag: 'Internal tools', metric: 'Zero downtime' }
+            ] %}
+            {% for w in work %}
+                <div class="reveal reveal-delay-{{ loop.index % 3 + 1 }} group p-6 rounded-lg border border-border bg-bg card-lift cursor-pointer">
+                    <span class="text-xs uppercase tracking-widest text-muted font-body">{{ w.tag }}</span>
+                    <h3 class="mt-3 font-display text-lg font-bold uppercase text-fg group-hover:text-accent transition-colors">{{ w.title }}</h3>
+                    <p class="mt-4 text-sm text-accent font-body font-semibold">{{ w.metric }}</p>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+{# 7. Testimonial marquees — two rows #}
+<section class="py-16 bg-bg overflow-hidden border-b border-border">
+    <div class="marquee-track mb-6">
+        {% set quotes1 = [
+            '"Valnee turned our vague idea into something we\'re proud to show investors." — ACME CEO',
+            '"Four weeks. Full ownership. No drama." — ACME CTO',
+            '"Our conversion rate tripled after the redesign." — ACME Marketing',
+            '"They actually listen. Rare in this industry." — ACME Product Lead'
+        ] %}
+        {% for q in quotes1 %}<span class="mx-8 text-sm text-muted whitespace-nowrap font-body italic">{{ q }}</span><span class="text-accent mx-2">·</span>{% endfor %}
+        {% for q in quotes1 %}<span class="mx-8 text-sm text-muted whitespace-nowrap font-body italic">{{ q }}</span><span class="text-accent mx-2">·</span>{% endfor %}
+    </div>
+    <div class="marquee-track" style="animation-direction: reverse; animation-duration: 28s;">
+        {% set quotes2 = [
+            '"Clean views, exactly as we imagined." — ACME Design',
+            '"Launch-ready on day one." — ACME Ops',
+            '"The motion feels intentional, not gimmicky." — ACME UX',
+            '"Best build partner we\'ve worked with." — ACME Founder'
+        ] %}
+        {% for q in quotes2 %}<span class="mx-8 text-sm text-fg whitespace-nowrap font-body">{{ q }}</span><span class="text-accent mx-2">·</span>{% endfor %}
+        {% for q in quotes2 %}<span class="mx-8 text-sm text-fg whitespace-nowrap font-body">{{ q }}</span><span class="text-accent mx-2">·</span>{% endfor %}
+    </div>
+</section>
+
+{# 8. Guarantee #}
+<section class="py-32 bg-surface">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl text-center">
+        <p class="eyebrow mb-6 reveal">The guarantee</p>
+        <h2 class="display-hero text-4xl sm:text-5xl lg:text-7xl text-accent reveal reveal-delay-1">
+            If it doesn&apos;t feel premium, we don&apos;t ship it.
         </h2>
-        <p class="mt-6 text-lg text-ink-muted font-body reveal reveal-delay-2">
+        <p class="mt-8 text-lg text-muted font-body max-w-2xl mx-auto reveal reveal-delay-2">
+            Every pixel, every interaction, every load time — held to a standard
+            your competitors can&apos;t match.
+        </p>
+    </div>
+</section>
+
+{# 9. FAQ #}
+<section class="py-24 bg-bg border-t border-border" x-data="{ open: null }">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-3xl">
+        <p class="eyebrow mb-4 reveal">FAQ</p>
+        <h2 class="font-display text-3xl font-bold uppercase text-fg mb-12 reveal reveal-delay-1">Common questions</h2>
+        {% set faqs = [
+            { q: 'How long does a typical build take?', a: 'Most projects launch in about four weeks. Complex builds may take longer, but you\'ll know the timeline before we start.' },
+            { q: 'Do I own the code?', a: 'Yes — 100%. Full repository access, documentation, and deployment handoff. No vendor lock-in.' },
+            { q: 'What if I need changes after launch?', a: 'We include iteration cycles in every build. Post-launch support packages are available too.' },
+            { q: 'Can you work with our existing brand?', a: 'Absolutely. We adapt to your guidelines or help refine them. The goal is a cohesive, premium experience.' }
+        ] %}
+        <div class="space-y-3">
+            {% for faq in faqs %}
+                <div class="reveal reveal-delay-{{ loop.index }} rounded-lg border border-border bg-surface overflow-hidden">
+                    <button @click="open = open === {{ loop.index }} ? null : {{ loop.index }}"
+                        class="w-full flex items-center justify-between px-6 py-5 text-left font-body font-semibold text-fg hover:bg-surface-2 transition-colors">
+                        {{ faq.q }}
+                        <span class="text-accent text-xl ml-4" x-text="open === {{ loop.index }} ? '−' : '+'"></span>
+                    </button>
+                    <div x-show="open === {{ loop.index }}" x-cloak x-transition class="px-6 pb-5 text-sm text-muted font-body leading-relaxed">
+                        {{ faq.a }}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+{# 10. Final CTA #}
+<section class="py-32 bg-surface border-t border-border hero-grid">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-3xl text-center">
+        <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl font-bold uppercase text-fg leading-tight reveal">
+            You bring the vision.<br>
+            <span class="text-accent">We build the experience people remember.</span>
+        </h2>
+        <p class="mt-6 text-lg text-muted font-body reveal reveal-delay-1">
             From idea to launch-ready product — Valnee Solutions delivers premium software
             that makes your competitors look like they&apos;re still loading.
         </p>
-        <div class="mt-10 reveal reveal-delay-3">
+        <div class="mt-10 reveal reveal-delay-2">
             {% partial 'components/button' label='Start your premium build →' href='/contact' variant='primary' %}
         </div>
     </div>

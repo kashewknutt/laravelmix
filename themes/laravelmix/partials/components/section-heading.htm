@@ -1,11 +1,9 @@
-<div class="mb-10 {{ class|default('') }}">
-    {% if eyebrow is defined %}
+<div class="{{ align == 'center' ? 'text-center' : '' }} mb-12">
+    {% if eyebrow %}
         <p class="eyebrow mb-3">{{ eyebrow }}</p>
     {% endif %}
-    {% if title is defined %}
-        <h2 class="font-display text-3xl font-medium tracking-tight text-ink md:text-4xl">{{ title }}</h2>
-    {% endif %}
-    {% if subtitle is defined %}
-        <p class="mt-4 max-w-2xl text-ink-muted font-body leading-relaxed">{{ subtitle }}</p>
+    <h2 class="font-display text-3xl sm:text-4xl font-bold uppercase text-fg tracking-tight">{{ title }}</h2>
+    {% if subtitle %}
+        <p class="mt-4 max-w-2xl {{ align == 'center' ? 'mx-auto' : '' }} text-muted font-body leading-relaxed">{{ subtitle }}</p>
     {% endif %}
 </div>

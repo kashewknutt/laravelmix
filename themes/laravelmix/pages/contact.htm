@@ -5,14 +5,13 @@ meta_title = "Contact"
 meta_description = "Start your premium web build with Valnee Solutions. Tell us what you want people to feel when they open your product."
 is_hidden = 0
 ==
-<section class="relative py-24 bg-surface-sand overflow-hidden">
-    <div class="blob blob-blush w-72 h-72 -top-16 right-0 opacity-45"></div>
+<section class="relative py-24 bg-bg hero-grid overflow-hidden">
     <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-2xl">
         <p class="eyebrow mb-4 reveal">Start a build</p>
-        <h1 class="font-display text-3xl font-medium text-ink sm:text-4xl reveal reveal-delay-1">
-            Tell us what you want people to <em class="not-italic text-clay">feel</em> when they open your product.
+        <h1 class="font-display text-3xl font-bold uppercase text-fg sm:text-4xl reveal reveal-delay-1">
+            Tell us what you want people to <span class="text-accent">feel</span> when they open your product.
         </h1>
-        <p class="mt-4 text-ink-muted font-body leading-relaxed reveal reveal-delay-2">
+        <p class="mt-4 text-muted font-body leading-relaxed reveal reveal-delay-2">
             Every great product starts with a conversation. Share your vision and we&apos;ll show you what&apos;s possible.
         </p>
     </div>
@@ -46,31 +45,31 @@ is_hidden = 0
         }"
         @submit.prevent="validate()"
         :class="shake && 'animate-shake'"
-        class="reveal p-8 rounded-2xl bg-surface border border-ink/5 shadow-card offset-card offset-card-sky"
+        class="reveal p-8 rounded-lg bg-surface border border-border offset-panel"
     >
         <div x-show="!submitted">
             <div>
-                <label class="block mb-1.5 text-sm font-medium text-ink font-body">Your name</label>
+                <label class="block mb-1.5 text-sm font-medium text-fg font-body">Your name</label>
                 <input x-model="name" type="text"
-                    class="w-full px-4 py-3 text-sm border rounded-xl outline-none transition-all duration-200 font-body"
-                    :class="errors.name ? 'border-clay' : 'border-ink/10 focus:border-clay focus:ring-2 focus:ring-clay/20'"
+                    class="w-full px-4 py-3 text-sm border rounded-lg outline-none transition-all duration-200 font-body bg-bg text-fg"
+                    :class="errors.name ? 'border-error' : 'border-border focus:border-accent'"
                     placeholder="Jane Smith">
-                <p x-show="errors.name" x-cloak x-transition class="mt-1.5 text-xs text-clay font-body" x-text="errors.name"></p>
+                <p x-show="errors.name" x-cloak x-transition class="mt-1.5 text-xs text-error font-body" x-text="errors.name"></p>
             </div>
 
             <div class="mt-5">
-                <label class="block mb-1.5 text-sm font-medium text-ink font-body">Email</label>
+                <label class="block mb-1.5 text-sm font-medium text-fg font-body">Email</label>
                 <input x-model="email" type="email"
-                    class="w-full px-4 py-3 text-sm border rounded-xl outline-none transition-all duration-200 font-body"
-                    :class="errors.email ? 'border-clay' : 'border-ink/10 focus:border-clay focus:ring-2 focus:ring-clay/20'"
+                    class="w-full px-4 py-3 text-sm border rounded-lg outline-none transition-all duration-200 font-body bg-bg text-fg"
+                    :class="errors.email ? 'border-error' : 'border-border focus:border-accent'"
                     placeholder="you@company.com">
-                <p x-show="errors.email" x-cloak x-transition class="mt-1.5 text-xs text-clay font-body" x-text="errors.email"></p>
+                <p x-show="errors.email" x-cloak x-transition class="mt-1.5 text-xs text-error font-body" x-text="errors.email"></p>
             </div>
 
             <div class="mt-5">
-                <label class="block mb-1.5 text-sm font-medium text-ink font-body">Project type</label>
+                <label class="block mb-1.5 text-sm font-medium text-fg font-body">Project type</label>
                 <select x-model="projectType"
-                    class="w-full px-4 py-3 text-sm border border-ink/10 rounded-xl outline-none focus:border-clay focus:ring-2 focus:ring-clay/20 font-body">
+                    class="w-full px-4 py-3 text-sm border border-border rounded-lg outline-none focus:border-accent font-body bg-bg text-fg">
                     <option value="">Select a project type</option>
                     <option value="web">Web application</option>
                     <option value="landing">Landing page / marketing site</option>
@@ -81,9 +80,9 @@ is_hidden = 0
             </div>
 
             <div class="mt-5">
-                <label class="block mb-1.5 text-sm font-medium text-ink font-body">Desired launch window</label>
+                <label class="block mb-1.5 text-sm font-medium text-fg font-body">Desired launch window</label>
                 <select x-model="timeline"
-                    class="w-full px-4 py-3 text-sm border border-ink/10 rounded-xl outline-none focus:border-clay focus:ring-2 focus:ring-clay/20 font-body">
+                    class="w-full px-4 py-3 text-sm border border-border rounded-lg outline-none focus:border-accent font-body bg-bg text-fg">
                     <option value="">When do you need this?</option>
                     <option value="asap">As soon as possible</option>
                     <option value="1month">Within 1 month</option>
@@ -93,16 +92,16 @@ is_hidden = 0
             </div>
 
             <div class="mt-5">
-                <label class="block mb-1.5 text-sm font-medium text-ink font-body">Tell us about your vision</label>
+                <label class="block mb-1.5 text-sm font-medium text-fg font-body">Tell us about your vision</label>
                 <textarea x-model="message" rows="4"
-                    class="w-full px-4 py-3 text-sm border rounded-xl outline-none resize-none font-body transition-all duration-200"
-                    :class="errors.message ? 'border-clay' : 'border-ink/10 focus:border-clay focus:ring-2 focus:ring-clay/20'"
+                    class="w-full px-4 py-3 text-sm border rounded-lg outline-none resize-none font-body transition-all duration-200 bg-bg text-fg"
+                    :class="errors.message ? 'border-error' : 'border-border focus:border-accent'"
                     placeholder="What do you want people to feel when they use your product?"></textarea>
-                <p x-show="errors.message" x-cloak x-transition class="mt-1.5 text-xs text-clay font-body" x-text="errors.message"></p>
+                <p x-show="errors.message" x-cloak x-transition class="mt-1.5 text-xs text-error font-body" x-text="errors.message"></p>
             </div>
 
             <div class="mt-8">
-                <button type="submit" class="w-full px-6 py-3.5 text-sm font-semibold text-white rounded-xl bg-clay hover:bg-clay-dark cta-magnetic font-body" data-sound>
+                <button type="submit" class="w-full px-6 py-3.5 text-sm font-semibold rounded-lg bg-accent text-accent-fg cta-magnetic font-body uppercase tracking-wide" data-sound>
                     Start my premium build →
                 </button>
             </div>
@@ -113,18 +112,18 @@ is_hidden = 0
             x-transition:enter-start="opacity-0 scale-95"
             x-transition:enter-end="opacity-100 scale-100"
             class="py-12 text-center">
-            <div class="flex items-center justify-center w-16 h-16 mx-auto mb-6 text-2xl rounded-full bg-clay-soft text-clay font-display">✓</div>
-            <h3 class="font-display text-xl font-medium text-ink">We&apos;ve got your vision.</h3>
-            <p class="mt-3 text-ink-muted font-body">Thank you for reaching out. Valnee Solutions will be in touch within one business day.</p>
+            <div class="flex items-center justify-center w-16 h-16 mx-auto mb-6 text-2xl rounded-lg bg-accent text-accent-fg font-display">✓</div>
+            <h3 class="font-display text-xl font-bold uppercase text-fg">We&apos;ve got your vision.</h3>
+            <p class="mt-3 text-muted font-body">Thank you for reaching out. Valnee Solutions will be in touch within one business day.</p>
             <button @click="submitted = false; name = ''; email = ''; message = ''; projectType = ''; timeline = ''" type="button"
-                class="mt-6 text-sm text-clay hover:text-clay-dark font-body">
+                class="mt-6 text-sm text-accent hover:underline font-body">
                 Submit another inquiry
             </button>
         </div>
     </form>
 
-    <p class="mt-8 text-center text-sm text-ink-faint font-body reveal">
+    <p class="mt-8 text-center text-sm text-muted font-body reveal">
         Prefer email? Reach us at
-        <a href="https://valnee.com" class="text-clay hover:text-clay-dark">valnee.com</a>
+        <a href="https://valnee.com" class="text-accent hover:underline">valnee.com</a>
     </p>
 </div>

@@ -1,19 +1,68 @@
 # ACME by Valnee — Design System
 
-## Direction: Soft Editorial
+Dark-first editorial aesthetic. One committed direction — no gradient blending, no generic AI slop.
 
-Warm paper backgrounds, generous whitespace, and magazine-like hierarchy. One committed aesthetic — not a blend. White and sand surfaces with solid pastel accents. Depth comes from layered offset cards, blurred solid-color blobs, parallax, and soft single-direction shadows. **No CSS gradients anywhere.**
+## Palette (CSS variables)
 
-## Palette and type
+| Token | Dark (default) | Light |
+|-------|----------------|-------|
+| `--bg` | `#0A0A0B` | `#F7F6F2` |
+| `--surface` | `#141416` | `#FFFFFF` |
+| `--surface-2` | `#1C1C20` | `#EFEEE8` |
+| `--fg` | `#F5F5F2` | `#14140F` |
+| `--muted` | `#8A8A82` | `#5C5C54` |
+| `--border` | `#26262B` | `#E2E1DA` |
+| `--accent` | `#C6F24E` (lime) | `#5B43F0` (purple) |
+| `--accent-fg` | `#0A0A0B` | `#FFFFFF` |
 
-- **Paper** `#FDFBF7` page background · **Clay** `#C2614A` dominant accent (used sharply, not timidly)
-- **Pastels** (solid fills only): blush, sage, sky, butter, lilac — support, never compete with clay
-- **Display**: Fraunces upright for headings (hero is upright, not oversized italic — italic reserved for small accents)
-- **Body**: Hanken Grotesk — never Inter, Roboto, Poppins, or Space Grotesk
+Toggle: `data-theme="light"` on `<html>`, persisted via `localStorage.theme`. Pre-paint script in `partials/site/meta.htm` prevents flash.
+
+## Typography
+
+- **Display / headings:** Bricolage Grotesque (600–800), uppercase for heroes and section titles
+- **Body / UI:** Hanken Grotesk (400–700)
+- Self-hosted via `@fontsource/*` in `assets/src/css/app.css`
+
+## Depth (no gradients)
+
+- 1px borders (`border-border`)
+- Offset panels (`.offset-panel` — flat stacked shadow via `::after`)
+- Grid lines (`.hero-grid`)
+- Fine noise (`.noise` on `<body>`)
+- Accent used sparingly: CTAs, key numbers, active states
+
+**Forbidden:** `bg-gradient-*`, radial glow orbs, purple/teal gradient heroes, glassmorphism stacks.
 
 ## Motion budget
 
-1. Page load: staggered reveal (eyebrow → headline → subtext → CTA)
-2. Parallax: hero and proof-section pastel blobs only
-3. Primary CTA: lift + optional soft audio click (opt-in toggle, off by default)
-4. Everything else static. Respect `prefers-reduced-motion`.
+Per view:
+1. One orchestrated entrance (hero stagger via `.reveal` + delays)
+2. Restrained scroll reveals (`IntersectionObserver` in `app.js`)
+3. Optional parallax on `[data-parallax]` layers
+
+Also: testimonial marquees, magnetic CTA hover (transform + border shadow).
+
+All gated behind `prefers-reduced-motion: reduce` in `extra.css` and `app.js`.
+
+## Audio
+
+- Looping ambient: `assets/dist/audio/ambient.mp3` (add your own file)
+- Arms on first user interaction (`click`, `scroll`, `pointermove`, `keydown`)
+- Web Audio fallback if MP3 missing or blocked
+- Mute toggle in header; state in `localStorage.acme-audio` (`on` / `off`)
+
+## Sections (homepage)
+
+Hero → Numbered problem (01–03) → Speed / Clarity / Certainty → VS table → Journey → Work grid → Testimonial marquees → Guarantee → FAQ → Final CTA
+
+## Footer
+
+Always: **Made with love by Valnee Solutions**
+
+## Build
+
+```bash
+cd themes/laravelmix && npm install && npm run prod
+```
+
+Audit: `rg -i 'gradient|glow-orb|blob|from-|to-' pages partials assets/src/css`

@@ -13,6 +13,7 @@ mix.setPublicPath('./')
     .setResourceRoot('/themes/laravelmix')
     .js('assets/src/js/app.js', 'assets/dist/js')
     .postCss('assets/src/css/app.css', 'assets/dist/css', postCssPlugins)
+    .copyDirectory('assets/src/audio', 'assets/dist/audio')
     .browserSync({
         proxy: 'http://127.0.0.1:8000/', //replace with your url
         files: [

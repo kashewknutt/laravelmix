@@ -5,14 +5,13 @@ meta_title = "About"
 meta_description = "How Valnee Solutions shapes premium product experiences — from strategy to launch."
 is_hidden = 0
 ==
-<section class="relative py-24 bg-surface-sand overflow-hidden">
-    <div class="blob blob-butter w-64 h-64 -top-12 left-0 opacity-50"></div>
+<section class="relative py-24 bg-bg hero-grid overflow-hidden">
     <div class="container mx-auto px-4 sm:px-6 lg:px-8">
         <p class="eyebrow mb-4 reveal">About this experience</p>
-        <h1 class="font-display text-3xl font-medium text-ink sm:text-4xl lg:text-5xl reveal reveal-delay-1">
+        <h1 class="font-display text-3xl font-bold uppercase text-fg sm:text-4xl lg:text-5xl reveal reveal-delay-1">
             ACME is fiction.<br>The craft is real.
         </h1>
-        <p class="mt-4 text-ink-muted max-w-xl font-body leading-relaxed reveal reveal-delay-2">
+        <p class="mt-4 text-muted max-w-xl font-body leading-relaxed reveal reveal-delay-2">
             This site is a fictional brand experience built by Valnee Solutions —
             a live proof of what we can create for your product.
         </p>
@@ -43,24 +42,24 @@ is_hidden = 0
         </div>
 
         <aside class="lg:col-span-1">
-            <div class="sticky top-28 p-6 rounded-2xl bg-surface-sand border border-ink/5 reveal reveal-delay-2">
-                <h3 class="text-sm font-semibold text-ink mb-4 font-body">Valnee at a glance</h3>
+            <div class="sticky top-28 p-6 rounded-lg bg-surface border border-border reveal reveal-delay-2">
+                <h3 class="text-sm font-semibold text-fg mb-4 font-body uppercase tracking-wide">Valnee at a glance</h3>
                 <dl class="space-y-4 text-sm font-body">
                     <div>
-                        <dt class="text-ink-faint">What we do</dt>
-                        <dd class="font-medium text-ink">Premium software experiences</dd>
+                        <dt class="text-muted">What we do</dt>
+                        <dd class="font-medium text-fg">Premium software experiences</dd>
                     </div>
                     <div>
-                        <dt class="text-ink-faint">How we work</dt>
-                        <dd class="font-medium text-ink">Fixed scope, guaranteed delivery</dd>
+                        <dt class="text-muted">How we work</dt>
+                        <dd class="font-medium text-fg">Fixed scope, guaranteed delivery</dd>
                     </div>
                     <div>
-                        <dt class="text-ink-faint">What you own</dt>
-                        <dd class="font-medium text-ink">100% of the code, always</dd>
+                        <dt class="text-muted">What you own</dt>
+                        <dd class="font-medium text-fg">100% of the code, always</dd>
                     </div>
                     <div>
-                        <dt class="text-ink-faint">Website</dt>
-                        <dd class="font-medium"><a href="https://valnee.com" class="text-clay hover:text-clay-dark">valnee.com</a></dd>
+                        <dt class="text-muted">Website</dt>
+                        <dd class="font-medium"><a href="https://valnee.com" class="text-accent hover:underline">valnee.com</a></dd>
                     </div>
                 </dl>
             </div>
@@ -70,7 +69,7 @@ is_hidden = 0
     <section class="mt-24">
         <div class="text-center mb-16 reveal">
             <p class="eyebrow mb-3">Our process</p>
-            <h2 class="font-display text-3xl font-medium text-ink sm:text-4xl">From vision to launch</h2>
+            <h2 class="font-display text-3xl font-bold uppercase text-fg sm:text-4xl">From vision to launch</h2>
         </div>
         <div class="max-w-2xl mx-auto">
             {% set steps = [
@@ -80,13 +79,13 @@ is_hidden = 0
                 { num: '04', title: 'Launch', body: 'Deployed, tested, and in your users\' hands. We don\'t disappear after launch — we iterate with you.' }
             ] %}
             {% for step in steps %}
-                <div class="reveal reveal-delay-{{ loop.index }} flex gap-6 pb-12 {{ not loop.last ? 'border-l-2 border-clay/20 ml-5 pl-8' : 'ml-5 pl-8' }}">
-                    <div class="flex-shrink-0 -ml-[2.55rem] flex items-center justify-center w-10 h-10 text-xs font-bold text-white rounded-full bg-clay font-body">
+                <div class="reveal reveal-delay-{{ loop.index }} flex gap-6 pb-12 {{ not loop.last ? 'border-l-2 border-border ml-5 pl-8' : 'ml-5 pl-8' }}">
+                    <div class="flex-shrink-0 -ml-[2.55rem] flex items-center justify-center w-10 h-10 text-xs font-bold rounded-lg bg-accent text-accent-fg font-body">
                         {{ step.num }}
                     </div>
                     <div>
-                        <h3 class="font-display text-lg font-medium text-ink">{{ step.title }}</h3>
-                        <p class="mt-1 text-sm text-ink-muted leading-relaxed font-body">{{ step.body }}</p>
+                        <h3 class="font-display text-lg font-bold uppercase text-fg">{{ step.title }}</h3>
+                        <p class="mt-1 text-sm text-muted leading-relaxed font-body">{{ step.body }}</p>
                     </div>
                 </div>
             {% endfor %}
@@ -100,9 +99,9 @@ is_hidden = 0
             { title: 'Ownership', body: 'Your code, your product, your IP. Always.' }
         ] %}
         {% for val in values %}
-            <div class="reveal reveal-delay-{{ loop.index }} p-6 rounded-2xl bg-surface border border-ink/5 card-lift text-center">
-                <h3 class="font-display text-lg font-medium text-ink">{{ val.title }}</h3>
-                <p class="mt-2 text-sm text-ink-muted font-body">{{ val.body }}</p>
+            <div class="reveal reveal-delay-{{ loop.index }} p-6 rounded-lg bg-surface border border-border card-lift text-center">
+                <h3 class="font-display text-lg font-bold uppercase text-fg">{{ val.title }}</h3>
+                <p class="mt-2 text-sm text-muted font-body">{{ val.body }}</p>
             </div>
         {% endfor %}
     </section>

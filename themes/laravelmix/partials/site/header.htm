@@ -1,7 +1,16 @@
 <header
-    x-data="{ open: false, scrolled: false }"
+    x-data="{
+        open: false,
+        scrolled: false,
+        theme: document.documentElement.dataset.theme || 'dark',
+        toggleTheme() {
+            this.theme = this.theme === 'dark' ? 'light' : 'dark';
+            document.documentElement.dataset.theme = this.theme;
+            localStorage.setItem('theme', this.theme);
+        }
+    }"
     x-init="window.addEventListener('scroll', () => { scrolled = window.scrollY > 24 })"
-    :class="scrolled ? 'bg-surface border-b border-ink/5 shadow-soft' : 'bg-paper'"
+    :class="scrolled ? 'bg-surface/95 backdrop-blur-md border-b border-border shadow-soft' : 'bg-transparent'"
     class="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
 >
     {% set navItems = [
@@ -11,29 +20,37 @@
         { url: '/contact', label: 'Contact' }
     ] %}
     <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex items-center justify-between h-16 lg:h-[4.5rem]">
+        <div class="flex items-center justify-between h-16 lg:h-20">
             <a href="/" class="flex items-center gap-2.5 group">
-                <span class="flex items-center justify-center w-9 h-9 text-sm font-bold text-white rounded-xl bg-clay transition-transform duration-300 group-hover:scale-105 font-body">A</span>
-                <span class="font-display text-lg font-medium text-ink tracking-tight">ACME</span>
+                <span class="flex items-center justify-center w-9 h-9 text-sm font-bold rounded-lg bg-accent text-accent-fg font-display transition-transform group-hover:scale-105">A</span>
+                <span class="font-display text-lg font-bold text-fg tracking-tight uppercase">ACME</span>
             </a>
 
             <nav class="hidden md:flex items-center gap-1">
                 {% for item in navItems %}
                     <a href="{{ item.url }}"
-                        class="px-4 py-2 text-sm font-medium rounded-lg font-body transition-colors duration-200 {{ this.page.url == item.url ? 'text-clay bg-clay-soft' : 'text-ink-muted hover:text-ink hover:bg-surface-sand' }}"
+                        class="px-4 py-2 text-sm font-medium rounded-lg font-body transition-colors {{ this.page.url == item.url ? 'text-accent bg-surface-2' : 'text-muted hover:text-fg hover:bg-surface-2' }}"
                     >{{ item.label }}</a>
                 {% endfor %}
-                <button type="button" id="audio-toggle" class="audio-toggle ml-2" aria-pressed="false" title="Sound off" aria-label="Toggle sound">
+                <button type="button" @click="toggleTheme()" class="icon-btn ml-2" :title="theme === 'dark' ? 'Light mode' : 'Dark mode'" aria-label="Toggle theme">
+                    <svg x-show="theme === 'dark'" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+                    <svg x-show="theme === 'light'" x-cloak class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
+                </button>
+                <button type="button" id="audio-toggle" class="icon-btn ml-1" aria-pressed="false" title="Sound off" aria-label="Toggle sound">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072M12 6v12m-6-6h4l5-5v14l-5-5H6z"/></svg>
                 </button>
-                <a href="/contact" class="ml-2 px-5 py-2.5 text-sm font-semibold text-white rounded-xl bg-clay cta-magnetic font-body" data-sound>Start a build</a>
+                <a href="/contact" class="ml-2 px-5 py-2.5 text-sm font-semibold rounded-lg bg-accent text-accent-fg cta-magnetic font-body uppercase tracking-wide" data-sound>Start a build</a>
             </nav>
 
             <div class="flex items-center gap-2 md:hidden">
-                <button type="button" id="audio-toggle-mobile" class="audio-toggle" aria-pressed="false" title="Sound off" aria-label="Toggle sound">
+                <button type="button" @click="toggleTheme()" class="icon-btn" aria-label="Toggle theme">
+                    <svg x-show="theme === 'dark'" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+                    <svg x-show="theme === 'light'" x-cloak class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
+                </button>
+                <button type="button" id="audio-toggle-mobile" class="icon-btn" aria-pressed="false" aria-label="Toggle sound">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072M12 6v12m-6-6h4l5-5v14l-5-5H6z"/></svg>
                 </button>
-                <button @click="open = !open" class="flex items-center justify-center w-10 h-10 rounded-lg text-ink-muted hover:bg-surface-sand" aria-label="Toggle menu">
+                <button @click="open = !open" class="icon-btn" aria-label="Toggle menu">
                     <svg x-show="!open" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
                     <svg x-show="open" x-cloak class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
                 </button>
@@ -41,13 +58,13 @@
         </div>
 
         <nav x-show="open" x-cloak x-transition class="pb-4 md:hidden">
-            <div class="flex flex-col gap-1 p-3 rounded-xl bg-surface border border-ink/5 shadow-soft">
+            <div class="flex flex-col gap-1 p-3 rounded-lg bg-surface border border-border">
                 {% for item in navItems %}
                     <a href="{{ item.url }}" @click="open = false"
-                        class="px-4 py-3 text-sm font-medium rounded-lg font-body {{ this.page.url == item.url ? 'text-clay bg-clay-soft' : 'text-ink-muted hover:bg-surface-sand' }}"
+                        class="px-4 py-3 text-sm font-medium rounded-lg font-body {{ this.page.url == item.url ? 'text-accent bg-surface-2' : 'text-muted hover:bg-surface-2' }}"
                     >{{ item.label }}</a>
                 {% endfor %}
-                <a href="/contact" @click="open = false" class="mt-2 px-4 py-3 text-sm font-semibold text-center text-white rounded-xl bg-clay font-body" data-sound>Start a build</a>
+                <a href="/contact" @click="open = false" class="mt-2 px-4 py-3 text-sm font-semibold text-center rounded-lg bg-accent text-accent-fg font-body uppercase" data-sound>Start a build</a>
             </div>
         </nav>
     </div>
