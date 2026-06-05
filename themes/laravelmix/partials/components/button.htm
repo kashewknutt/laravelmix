@@ -1,6 +1,8 @@
 {#
   Variants: primary, outline, ghost
+  Pass href="/contact" or href="cta" to use the Calendly booking URL.
 #}
+{% set ctaUrl = 'https://calendly.com/parthwanjari07/30min?month=2026-06' %}
 {% set variant = variant|default('primary') %}
 {% set base = 'inline-flex items-center justify-center px-6 py-3 text-sm font-semibold rounded-lg transition-all duration-200 font-body uppercase tracking-wide' %}
 {% if variant == 'primary' %}
@@ -10,8 +12,11 @@
 {% else %}
     {% set variantClass = 'text-muted hover:text-fg hover:bg-surface-2' %}
 {% endif %}
+{% if href == '/contact' or href == 'cta' %}
+    {% set href = ctaUrl %}
+{% endif %}
 {% if href %}
-<a href="{{ href }}" class="{{ base }} {{ variantClass }} {{ class|default('') }}" data-sound>{{ label }}</a>
+<a href="{{ href }}" class="{{ base }} {{ variantClass }} {{ class|default('') }}"{% if 'http' in href %} target="_blank" rel="noopener noreferrer"{% endif %} data-sound>{{ label }}</a>
 {% else %}
 <button type="{{ type|default('button') }}" class="{{ base }} {{ variantClass }} {{ class|default('') }}" data-sound>{{ label }}</button>
 {% endif %}

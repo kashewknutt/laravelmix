@@ -39,7 +39,7 @@
                 <button type="button" id="audio-toggle" class="icon-btn ml-1" aria-pressed="false" title="Sound off" aria-label="Toggle sound">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072M12 6v12m-6-6h4l5-5v14l-5-5H6z"/></svg>
                 </button>
-                <a href="/contact" class="ml-2 px-5 py-2.5 text-sm font-semibold rounded-lg bg-accent text-accent-fg cta-magnetic font-body uppercase tracking-wide" data-sound>Start a build</a>
+                {% partial 'site/cta-link' label='Start a build' class='ml-2 px-5 py-2.5 text-sm font-semibold rounded-lg bg-accent text-accent-fg cta-magnetic font-body uppercase tracking-wide' %}
             </nav>
 
             <div class="flex items-center gap-2 md:hidden">
@@ -64,7 +64,7 @@
                         class="flex px-4 py-3 text-sm font-medium rounded-lg font-body {{ this.page.url == item.url ? 'text-accent bg-surface-2' : 'text-muted hover:bg-surface-2' }}"
                     >{{ item.label }}</a>
                 {% endfor %}
-                <a href="/contact" @click="open = false" class="mt-2 px-4 py-3 text-sm font-semibold text-center rounded-lg bg-accent text-accent-fg font-body uppercase" data-sound>Start a build</a>
+                {% partial 'site/cta-link' label='Start a build' class='mt-2 px-4 py-3 text-sm font-semibold text-center rounded-lg bg-accent text-accent-fg font-body uppercase' %}
             </div>
         </nav>
     </div>
