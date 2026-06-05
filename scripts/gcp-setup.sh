@@ -5,7 +5,7 @@
 set -euo pipefail
 
 PROJECT_ID="${1:-valneetrivial}"
-REGION="${2:-asia-south1}"
+REGION="${2:-asia-southeast1}"
 GITHUB_REPO="${GITHUB_REPO:-kashewknutt/laravelmix}"
 PROJECT_NUMBER="${PROJECT_NUMBER:-4092394746}"
 SERVICE_ACCOUNT="github-actions-deployer"

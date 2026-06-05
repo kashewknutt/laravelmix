@@ -3,36 +3,53 @@ set -e
 
 cd /var/www/html
 
-# Ensure writable directories
-mkdir -p storage/framework/cache storage/framework/sessions storage/framework/views storage/logs storage/cms storage/app/uploads/public
+mkdir -p \
+    storage/framework/cache/data \
+    storage/framework/sessions \
+    storage/framework/views \
+    storage/logs \
+    storage/cms \
+    storage/app/uploads/public \
+    bootstrap/cache
+
 chmod -R 775 storage bootstrap/cache
 
-# Create .env from example if missing
 if [ ! -f .env ]; then
     cp .env.example .env
 fi
 
-# Generate app key if not set
-if ! grep -q '^APP_KEY=base64:' .env; then
+# Sync Cloud Run env vars into .env (avoids key:generate vs APP_KEY env conflict)
+patch_env() {
+    key="$1"
+    val=$(eval "printf '%s' \"\$$key\"")
+    if [ -n "$val" ]; then
+        grep -v "^${key}=" .env > .env.tmp || true
+        mv .env.tmp .env
+        printf '%s=%s\n' "$key" "$val" >> .env
+    fi
+}
+
+for key in APP_KEY APP_ENV APP_DEBUG APP_URL ACTIVE_THEME DB_CONNECTION DB_DATABASE LOG_CHANNEL; do
+    patch_env "$key"
+done
+
+if [ -z "$APP_KEY" ] && ! grep -q '^APP_KEY=base64:' .env; then
     php artisan key:generate --force --no-interaction
 fi
 
-# SQLite database for simple deployments
-if [ "$DB_CONNECTION" = "sqlite" ] || grep -q '^DB_CONNECTION=sqlite' .env; then
-    DB_PATH=$(grep '^DB_DATABASE=' .env | cut -d= -f2-)
-    if [ -n "$DB_PATH" ] && [ ! -f "$DB_PATH" ]; then
-        mkdir -p "$(dirname "$DB_PATH")"
-        touch "$DB_PATH"
-    fi
+DB_PATH="${DB_DATABASE:-$(grep '^DB_DATABASE=' .env | cut -d= -f2-)}"
+if [ -n "$DB_PATH" ] && [ ! -f "$DB_PATH" ]; then
+    mkdir -p "$(dirname "$DB_PATH")"
+    touch "$DB_PATH"
 fi
 
-php artisan config:clear
-php artisan cache:clear
-php artisan october:migrate --force || php artisan migrate --force
+php artisan config:clear || true
+php artisan cache:clear || true
+php artisan october:migrate --force 2>/dev/null || php artisan migrate --force || true
 
 if [ "$APP_ENV" = "production" ]; then
-    php artisan config:cache
-    php artisan route:cache
+    php artisan config:cache || true
+    php artisan route:cache || true
 fi
 
 php-fpm -D

@@ -36,7 +36,7 @@ After setup, every push to `main` deploys to Cloud Run. See [docs/DEPLOYMENT.md]
 | CSS | Tailwind CSS v2 + token-based design system |
 | JS | Alpine.js v2 (bundled via Laravel Mix) |
 | Build | Laravel Mix / webpack |
-| Deploy | Docker → GCP Cloud Run (`asia-south1`) |
+| Deploy | Docker → GCP Cloud Run (`asia-southeast1`) |
 | CI/CD | GitHub Actions + Workload Identity Federation |
 
 ## Project structure
@@ -108,7 +108,7 @@ Add GitHub secrets (see [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md)), then push to 
 | Setting | Value |
 |---|---|
 | Project | `valneetrivial` |
-| Region | `asia-south1` |
+| Region | `asia-southeast1` |
 | Repo | `kashewknutt/laravelmix` |
 
 ## Design system

@@ -1,6 +1,8 @@
 # GCP Deployment Guide
 
-Deploy the ACME demo site to **Google Cloud Run** in Mumbai (`asia-south1`) via GitHub Actions.
+Deploy the ACME demo site to **Google Cloud Run** in Singapore (`asia-southeast1`) via GitHub Actions.
+
+> **Why not Mumbai?** Cloud Run custom domain mapping is not supported in `asia-south1`. Singapore is the nearest region that supports it.
 
 ## Your project values
 
@@ -9,7 +11,7 @@ Deploy the ACME demo site to **Google Cloud Run** in Mumbai (`asia-south1`) via 
 | GitHub repo | [kashewknutt/laravelmix](https://github.com/kashewknutt/laravelmix) |
 | GCP project ID | `valneetrivial` |
 | GCP project number | `4092394746` |
-| Region | `asia-south1` (Mumbai) |
+| Region | `asia-southeast1` (Singapore) |
 | Cloud Run service | `laravelmix-october` |
 
 ---
@@ -39,7 +41,7 @@ Click **New repository secret** for each:
 | Secret name | Value |
 |---|---|
 | `GCP_PROJECT_ID` | `valneetrivial` |
-| `GCP_REGION` | `asia-south1` |
+| `GCP_REGION` | `asia-southeast1` |
 | `GCP_SERVICE_ACCOUNT` | `github-actions-deployer@valneetrivial.iam.gserviceaccount.com` |
 | `GCP_WORKLOAD_IDENTITY_PROVIDER` | `projects/4092394746/locations/global/workloadIdentityPools/github-pool/providers/github-provider` |
 | `APP_KEY` | Output of `php artisan key:generate --show` (see below) |
@@ -67,7 +69,7 @@ Watch the deploy at: **https://github.com/kashewknutt/laravelmix/actions**
 The **Deploy to GCP Cloud Run** workflow will:
 1. Build theme assets inside Docker
 2. Push image to Artifact Registry
-3. Deploy to Cloud Run in `asia-south1`
+3. Deploy to Cloud Run in `asia-southeast1`
 4. Print the live URL in the job summary
 
 ## Step 5 — Verify in GCP Console (optional)
@@ -104,6 +106,26 @@ php artisan serve
 
 Re-run `./scripts/gcp-setup.sh` and verify the `GCP_WORKLOAD_IDENTITY_PROVIDER` secret matches exactly.
 
+### Deploy fails: "failed to start and listen on port 8080"
+
+Check Cloud Run logs. Common causes:
+
+1. **PHP version mismatch** — Dockerfile must use PHP 8.4+ (October CMS 4 requirement).
+2. **APP_KEY conflict** — Cloud Run sets `APP_KEY` as an env var; entrypoint must not run `key:generate` when it is already set. Fixed in `docker/entrypoint.sh`.
+3. **Cache clear permissions** — startup runs `cache:clear` with `|| true` so a cold cache does not crash the container.
+
+### Region still shows `asia-south1` in GitHub Actions
+
+The workflow file hardcoded the region — changing the `GCP_REGION` secret alone had no effect. The workflow now reads `secrets.GCP_REGION` (defaults to `asia-southeast1`). Push the updated workflow, then re-run deploy.
+
+When moving regions, create Artifact Registry in the new region once:
+
+```bash
+./scripts/gcp-setup.sh valneetrivial asia-southeast1
+```
+
+The old `asia-south1` Cloud Run service can be deleted from the GCP console when no longer needed.
+
 ### Site loads but styles are missing
 
 Theme assets are built inside Docker. Ensure `npm run prod` succeeds in CI. Check the Docker build logs in GitHub Actions.
@@ -118,7 +140,7 @@ Expected with SQLite on Cloud Run (ephemeral storage). Front-end pages in Twig f
 gcloud run deploy laravelmix-october \
   --source . \
   --project valneetrivial \
-  --region asia-south1 \
+  --region asia-southeast1 \
   --allow-unauthenticated \
   --port 8080
 ```
