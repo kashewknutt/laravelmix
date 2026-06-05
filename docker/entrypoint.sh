@@ -12,8 +12,6 @@ mkdir -p \
     storage/app/uploads/public \
     bootstrap/cache
 
-chmod -R 775 storage bootstrap/cache
-
 if [ ! -f .env ]; then
     cp .env.example .env
 fi
@@ -29,7 +27,7 @@ patch_env() {
     fi
 }
 
-for key in APP_KEY APP_ENV APP_DEBUG APP_URL ACTIVE_THEME DB_CONNECTION DB_DATABASE LOG_CHANNEL; do
+for key in APP_KEY APP_ENV APP_DEBUG APP_URL ACTIVE_THEME DB_CONNECTION DB_DATABASE LOG_CHANNEL CACHE_STORE SESSION_DRIVER; do
     patch_env "$key"
 done
 
@@ -51,6 +49,10 @@ if [ "$APP_ENV" = "production" ]; then
     php artisan config:cache || true
     php artisan route:cache || true
 fi
+
+# php-fpm runs as www-data — must own writable dirs (fixes cache/data/f0/60/ errors)
+chown -R www-data:www-data storage bootstrap/cache
+chmod -R 775 storage bootstrap/cache
 
 php-fpm -D
 exec nginx -g 'daemon off;'
