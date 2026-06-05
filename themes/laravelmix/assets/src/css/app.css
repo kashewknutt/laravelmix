@@ -6,11 +6,9 @@
 
 @import "extra.css";
 
-/* Add you fonts as below */
-
-/*Poppins Regular*/
-@import "~fontsource-poppins/400.css";
-/*Poppins Medium*/
-@import "~fontsource-poppins/500.css";
-/*Poppins Bold*/
-@import "~fontsource-poppins/700.css";
+@import "~@fontsource/fraunces/400.css";
+@import "~@fontsource/fraunces/500.css";
+@import "~@fontsource/fraunces/600.css";
+@import "~@fontsource/hanken-grotesk/400.css";
+@import "~@fontsource/hanken-grotesk/500.css";
+@import "~@fontsource/hanken-grotesk/700.css";

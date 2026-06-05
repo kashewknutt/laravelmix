@@ -1,18 +1,17 @@
 {#
-  Usage: {% partial 'components/button' label='Click me' href='/showcase' variant='primary' %}
-  Variants: primary, ghost, outline
+  Variants: primary (clay), outline, ghost
 #}
 {% set variant = variant|default('primary') %}
-{% set base = 'inline-flex items-center justify-center px-5 py-2.5 text-sm font-medium rounded-lg transition-all duration-300 ease-smooth' %}
+{% set base = 'inline-flex items-center justify-center px-6 py-3 text-sm font-medium rounded-xl transition-all duration-300 font-body' %}
 {% if variant == 'primary' %}
-    {% set variantClass = 'bg-accent text-white hover:bg-accent-dark shadow-soft' %}
+    {% set variantClass = 'bg-clay text-white hover:bg-clay-dark shadow-soft cta-magnetic' %}
 {% elseif variant == 'outline' %}
-    {% set variantClass = 'border border-surface-subtle text-ink hover:border-accent hover:text-accent' %}
+    {% set variantClass = 'border border-ink/10 text-ink hover:border-clay hover:text-clay bg-surface' %}
 {% else %}
-    {% set variantClass = 'text-ink-muted hover:text-ink hover:bg-surface-subtle' %}
+    {% set variantClass = 'text-ink-muted hover:text-ink hover:bg-surface-sand' %}
 {% endif %}
 {% if href %}
-<a href="{{ href }}" class="{{ base }} {{ variantClass }} {{ class|default('') }}">{{ label }}</a>
+<a href="{{ href }}" class="{{ base }} {{ variantClass }} {{ class|default('') }}" data-sound>{{ label }}</a>
 {% else %}
-<button type="{{ type|default('button') }}" class="{{ base }} {{ variantClass }} {{ class|default('') }}">{{ label }}</button>
+<button type="{{ type|default('button') }}" class="{{ base }} {{ variantClass }} {{ class|default('') }}" data-sound>{{ label }}</button>
 {% endif %}

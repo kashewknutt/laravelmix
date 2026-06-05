@@ -1,14 +1,11 @@
-{#
-  Usage: {% partial 'components/section-heading' eyebrow='Components' title='Design System' subtitle='Optional text' %}
-#}
 <div class="mb-10 {{ class|default('') }}">
     {% if eyebrow is defined %}
-        <p class="eyebrow mb-2">{{ eyebrow }}</p>
+        <p class="eyebrow mb-3">{{ eyebrow }}</p>
     {% endif %}
     {% if title is defined %}
-        <h2 class="text-3xl font-semibold tracking-tight text-ink md:text-4xl">{{ title }}</h2>
+        <h2 class="font-display text-3xl font-medium tracking-tight text-ink md:text-4xl">{{ title }}</h2>
     {% endif %}
     {% if subtitle is defined %}
-        <p class="mt-3 max-w-2xl text-ink-muted">{{ subtitle }}</p>
+        <p class="mt-4 max-w-2xl text-ink-muted font-body leading-relaxed">{{ subtitle }}</p>
     {% endif %}
 </div>

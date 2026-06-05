@@ -1,7 +1,4 @@
-{#
-  Usage: {% partial 'components/stat' value='4' label='Pages' %}
-#}
 <div class="text-center {{ class|default('') }}">
-    <div class="text-3xl font-bold text-ink">{{ value }}</div>
-    <div class="mt-1 text-sm text-ink-muted">{{ label }}</div>
+    <div class="font-display text-3xl font-medium text-ink">{{ value }}</div>
+    <div class="mt-1 text-sm text-ink-muted font-body">{{ label }}</div>
 </div>

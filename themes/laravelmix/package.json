@@ -30,7 +30,8 @@
     "@tailwindcss/typography": "^0.3.1",
     "alpinejs": "^2.8.2",
     "cross-env": "^7.0.2",
-    "fontsource-poppins": "^3.0.10",
+    "@fontsource/fraunces": "^5.2.5",
+    "@fontsource/hanken-grotesk": "^5.2.5",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.0.1",
     "vue": "^2.6.12"
   }

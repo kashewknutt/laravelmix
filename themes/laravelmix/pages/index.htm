@@ -2,143 +2,185 @@ title = "Home"
 url = "/"
 layout = "wide"
 meta_title = "Home"
-meta_description = "ACME Solutions — a minimal portfolio demo built with Twig, Tailwind CSS, Alpine.js, and October CMS."
+meta_description = "Premium custom software experiences built by Valnee Solutions. Clean views, immersive design, launch-ready systems."
 is_hidden = 0
 ==
-<section class="relative overflow-hidden bg-gradient-to-b from-accent-light to-surface">
-    <div class="container mx-auto px-4 py-24 sm:px-6 sm:py-32 lg:px-8">
-        <div
-            x-data="{ shown: false }"
-            x-init="setTimeout(() => shown = true, 100)"
-            class="max-w-3xl mx-auto text-center"
-        >
-            <p
-                x-show="shown"
-                x-transition:enter="transition ease-out duration-500"
-                x-transition:enter-start="opacity-0 translate-y-4"
-                x-transition:enter-end="opacity-100 translate-y-0"
-                class="eyebrow mb-4"
-            >Portfolio Demo</p>
-            <h1
-                x-show="shown"
-                x-transition:enter="transition ease-out duration-700 delay-100"
-                x-transition:enter-start="opacity-0 translate-y-4"
-                x-transition:enter-end="opacity-100 translate-y-0"
-                class="text-4xl font-bold tracking-tight text-ink sm:text-5xl lg:text-6xl"
-            >
-                Clean design.<br>Modern front-end craft.
-            </h1>
-            <p
-                x-show="shown"
-                x-transition:enter="transition ease-out duration-700 delay-200"
-                x-transition:enter-start="opacity-0 translate-y-4"
-                x-transition:enter-end="opacity-100 translate-y-0"
-                class="mt-6 text-lg text-ink-muted max-w-xl mx-auto"
-            >
-                A fictional ACME company site showcasing Twig templates, Tailwind CSS, Alpine.js animations, and a full GCP CI/CD pipeline.
-            </p>
-            <div
-                x-show="shown"
-                x-transition:enter="transition ease-out duration-700 delay-300"
-                x-transition:enter-start="opacity-0 translate-y-4"
-                x-transition:enter-end="opacity-100 translate-y-0"
-                class="flex flex-wrap items-center justify-center gap-3 mt-10"
-            >
-                {% partial 'components/button' label='View Showcase' href='/showcase' variant='primary' %}
-                {% partial 'components/button' label='About ACME' href='/about' variant='outline' %}
+<section class="relative min-h-screen flex items-center overflow-hidden bg-paper">
+    <div class="blob blob-blush w-[420px] h-[420px] -top-24 -left-24 animate-floatSlow" data-parallax="0.04"></div>
+    <div class="blob blob-sky w-[360px] h-[360px] top-1/4 -right-20 animate-float" data-parallax="0.06"></div>
+    <div class="blob blob-butter w-[280px] h-[280px] bottom-16 left-1/3 animate-floatSlow" data-parallax="0.03"></div>
+
+    <div class="container relative z-10 mx-auto px-4 pt-28 pb-32 sm:px-6 lg:px-8">
+        <div class="grid gap-16 lg:grid-cols-2 lg:gap-12 items-center">
+            <div>
+                <p class="eyebrow mb-6 reveal">Crafted by Valnee Solutions</p>
+                <h1 class="font-display text-4xl font-medium leading-[1.15] tracking-tight text-ink sm:text-5xl lg:text-[3.25rem] reveal reveal-delay-1">
+                    Software that feels custom from the first pixel.
+                </h1>
+                <p class="mt-6 text-lg text-ink-muted max-w-lg leading-relaxed font-body reveal reveal-delay-2">
+                    Clean views, customized exactly as you imagine. Interfaces that feel alive,
+                    load fast, and convert attention into trust.
+                </p>
+                <div class="flex flex-wrap gap-4 mt-10 reveal reveal-delay-3">
+                    {% partial 'components/button' label='Build something unforgettable' href='/contact' variant='primary' %}
+                    {% partial 'components/button' label='Explore the experience' href='/showcase' variant='outline' %}
+                </div>
+            </div>
+
+            <div class="relative hidden lg:block reveal reveal-delay-2">
+                <div data-parallax="0.05" class="parallax-layer absolute -top-6 -right-2 w-64 p-5 rounded-2xl bg-surface border border-ink/5 shadow-card animate-float offset-card offset-card-sky">
+                    <div class="flex items-center gap-2 mb-3">
+                        <div class="w-2.5 h-2.5 rounded-full bg-blush"></div>
+                        <div class="w-2.5 h-2.5 rounded-full bg-sage"></div>
+                        <div class="w-2.5 h-2.5 rounded-full bg-butter"></div>
+                    </div>
+                    <div class="space-y-2">
+                        <div class="h-2 w-full rounded bg-surface-sand"></div>
+                        <div class="h-2 w-4/5 rounded bg-surface-sand"></div>
+                        <div class="h-10 w-full rounded-xl bg-clay-soft mt-3"></div>
+                    </div>
+                </div>
+                <div data-parallax="0.1" class="parallax-layer relative ml-10 mt-20 p-6 rounded-2xl bg-surface border border-ink/5 shadow-lift animate-floatSlow offset-card">
+                    <div class="text-xs text-ink-faint mb-4 uppercase tracking-widest font-body">Live preview</div>
+                    <div class="space-y-3">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-xl bg-clay-soft"></div>
+                            <div>
+                                <div class="h-2.5 w-24 rounded bg-surface-sand"></div>
+                                <div class="h-2 w-16 rounded bg-surface-sand mt-1.5"></div>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-3 gap-2 mt-4">
+                            <div class="h-14 rounded-lg bg-blush/60"></div>
+                            <div class="h-14 rounded-lg bg-sage/60"></div>
+                            <div class="h-14 rounded-lg bg-clay-soft"></div>
+                        </div>
+                        <div class="h-10 w-full rounded-xl bg-clay mt-2"></div>
+                    </div>
+                </div>
+                <div data-parallax="0.07" class="parallax-layer absolute -bottom-2 -left-6 w-44 p-4 rounded-xl bg-surface border border-ink/5 shadow-soft">
+                    <div class="flex items-center gap-2">
+                        <div class="w-8 h-8 rounded-full bg-sage flex items-center justify-center text-sage text-xs font-body" style="color:#4a7c59">✓</div>
+                        <div>
+                            <div class="text-xs text-ink-faint font-body">Engagement</div>
+                            <div class="text-lg font-display font-medium text-ink">+340%</div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </section>
 
-<section class="py-20 bg-surface">
+<section class="relative py-24 bg-surface overflow-hidden">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl text-center">
+        <p class="eyebrow mb-4 reveal">The Valnee difference</p>
+        <h2 class="font-display text-3xl font-medium tracking-tight text-ink sm:text-4xl lg:text-[2.75rem] leading-tight reveal reveal-delay-1">
+            This site demonstrates the limits of web development.<br>
+            <span class="text-clay">Then breaks them for you.</span>
+        </h2>
+        <p class="mt-6 text-lg text-ink-muted max-w-2xl mx-auto font-body leading-relaxed reveal reveal-delay-2">
+            Your product should not look templated. It should feel inevitable.
+            Valnee builds experiences people remember.
+        </p>
+    </div>
+</section>
+
+<section class="py-24 bg-surface-sand">
     <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-        {% partial 'components/section-heading'
-            eyebrow='Stack'
-            title='Built with modern tools'
-            subtitle='Every layer of this demo is intentional — from templating to deployment.'
-        %}
-        <div
-            x-data="{ shown: false }"
-            x-init="setTimeout(() => shown = true, 200)"
-            class="grid gap-6 md:grid-cols-3"
-        >
-            {% set features = [
-                { icon: '🧩', title: 'Twig Templates', body: 'Component-driven partials with October CMS. Reusable, server-rendered HTML.' },
-                { icon: '🎨', title: 'Tailwind CSS', body: 'Token-based design system with minimal palette, responsive utilities, and custom animations.' },
-                { icon: '⚡', title: 'Alpine.js', body: 'Lightweight interactivity — transitions, toggles, and form states without a heavy framework.' }
+        <div class="text-center mb-16">
+            <p class="eyebrow mb-3 reveal">What you get</p>
+            <h2 class="font-display text-3xl font-medium text-ink sm:text-4xl reveal reveal-delay-1">Built to impress. Built to perform.</h2>
+        </div>
+        <div class="grid gap-8 md:grid-cols-3">
+            {% set outcomes = [
+                { icon: '◆', title: 'Clean Views', body: 'Customized exactly as you imagine. Every screen tailored to your brand, your users, your story.', offset: 'offset-card-sky' },
+                { icon: '◎', title: 'Motion With Meaning', body: 'Animations that guide attention, build trust, and make your product feel alive — never gimmicky.', offset: 'offset-card-sage' },
+                { icon: '▲', title: 'Launch-Ready Systems', body: 'From polished interface to deployed product. Fast, reliable, and ready for real users on day one.', offset: 'offset-card-lilac' }
             ] %}
-            {% for feature in features %}
-                <div
-                    x-show="shown"
-                    x-transition:enter="transition ease-out duration-500"
-                    x-transition:enter-start="opacity-0 translate-y-6"
-                    x-transition:enter-end="opacity-100 translate-y-0"
-                    style="transition-delay: {{ loop.index0 * 100 }}ms"
-                >
-                    {% partial 'components/card' title=feature.title body=feature.body icon=feature.icon %}
+            {% for outcome in outcomes %}
+                <div class="reveal reveal-delay-{{ loop.index }} offset-card {{ outcome.offset }} p-8 rounded-2xl card-lift">
+                    <div class="flex items-center justify-center w-12 h-12 mb-6 text-lg rounded-xl bg-clay-soft text-clay font-display">
+                        {{ outcome.icon }}
+                    </div>
+                    <h3 class="font-display text-xl font-medium text-ink">{{ outcome.title }}</h3>
+                    <p class="mt-3 text-ink-muted leading-relaxed font-body text-sm">{{ outcome.body }}</p>
                 </div>
             {% endfor %}
         </div>
     </div>
 </section>
 
-<section class="py-16 bg-surface-muted border-y border-surface-subtle">
-    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex flex-wrap items-center justify-center gap-3">
-            {% set badges = ['Twig', 'Tailwind CSS', 'Alpine.js', 'Laravel Mix', 'October CMS', 'Docker', 'GCP Cloud Run'] %}
-            {% for badge in badges %}
-                {% partial 'components/badge' label=badge %}
-            {% endfor %}
+<section class="py-10 bg-surface border-y border-ink/5 overflow-hidden">
+    <div class="marquee-track">
+        {% set marqueeItems = ['Reliable Builds', 'Premium UX', 'Launch Fast', 'Own Your Code', 'Clean Views', 'Motion With Meaning', 'Conversion Focused', 'Built With Care'] %}
+        {% for item in marqueeItems %}
+            <span class="mx-8 text-sm font-medium tracking-widest uppercase text-ink-faint whitespace-nowrap font-body">{{ item }}</span>
+            <span class="mx-2 text-clay/40">·</span>
+        {% endfor %}
+        {% for item in marqueeItems %}
+            <span class="mx-8 text-sm font-medium tracking-widest uppercase text-ink-faint whitespace-nowrap font-body">{{ item }}</span>
+            <span class="mx-2 text-clay/40">·</span>
+        {% endfor %}
+    </div>
+</section>
+
+<section class="relative py-32 bg-surface overflow-hidden">
+    <div class="blob blob-lilac w-80 h-80 top-0 right-0 opacity-40" data-parallax="0.05"></div>
+    <div class="container relative mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid gap-16 lg:grid-cols-2 items-center">
+            <div class="reveal">
+                <p class="eyebrow mb-4">Proof of craft</p>
+                <h2 class="font-display text-3xl font-medium text-ink sm:text-4xl leading-tight">
+                    Depth you can feel.<br>Details you can trust.
+                </h2>
+                <p class="mt-6 text-ink-muted leading-relaxed font-body">
+                    Layered interfaces, scroll-driven motion, and conversion-focused layouts —
+                    all working together to create an experience that sells before you say a word.
+                </p>
+                <a href="/showcase" class="inline-flex items-center mt-8 px-6 py-3 text-sm font-semibold text-clay rounded-xl border border-clay/30 hover:bg-clay-soft transition-all duration-300 font-body" data-sound>
+                    See it in action →
+                </a>
+            </div>
+            <div class="relative reveal reveal-delay-2">
+                <div class="p-6 rounded-2xl bg-surface border border-ink/5 shadow-lift offset-card offset-card-butter">
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="p-4 rounded-xl bg-blush/50 border border-ink/5">
+                            <div class="font-display text-2xl font-medium text-ink">98%</div>
+                            <div class="text-xs text-ink-faint mt-1 font-body">Client satisfaction</div>
+                        </div>
+                        <div class="p-4 rounded-xl bg-sky/50 border border-ink/5">
+                            <div class="font-display text-2xl font-medium text-clay">4wk</div>
+                            <div class="text-xs text-ink-faint mt-1 font-body">Avg. launch time</div>
+                        </div>
+                        <div class="p-4 rounded-xl bg-sage/50 border border-ink/5">
+                            <div class="font-display text-2xl font-medium text-ink">100%</div>
+                            <div class="text-xs text-ink-faint mt-1 font-body">Code ownership</div>
+                        </div>
+                        <div class="p-4 rounded-xl bg-clay-soft border border-clay/20">
+                            <div class="font-display text-2xl font-medium text-clay">∞</div>
+                            <div class="text-xs text-ink-muted mt-1 font-body">Iterations included</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </section>
 
-<section class="py-20 bg-surface">
-    <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-2xl">
-        {% partial 'components/section-heading'
-            eyebrow='Interactive'
-            title='Alpine.js in action'
-            subtitle='Click the tabs to see live component state changes.'
-        %}
-        <div
-            x-data="{ tab: 'design' }"
-            class="p-6 rounded-xl border border-surface-subtle bg-surface shadow-soft"
-        >
-            <div class="flex gap-2 mb-6">
-                {% set tabs = [
-                    { id: 'design', label: 'Design' },
-                    { id: 'dev', label: 'Development' },
-                    { id: 'deploy', label: 'Deploy' }
-                ] %}
-                {% for t in tabs %}
-                    <button
-                        @click="tab = '{{ t.id }}'"
-                        :class="tab === '{{ t.id }}' ? 'bg-accent text-white' : 'text-ink-muted hover:bg-surface-subtle'"
-                        class="px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200"
-                    >{{ t.label }}</button>
-                {% endfor %}
-            </div>
-            <div x-show="tab === 'design'" x-transition class="text-ink-muted">
-                <p>Token-based colors, reusable Twig partials, and subtle CSS animations create a cohesive minimal aesthetic.</p>
-            </div>
-            <div x-show="tab === 'dev'" x-cloak x-transition class="text-ink-muted">
-                <p>Local hot-reload via Laravel Mix and BrowserSync. Edit templates, see changes instantly at localhost:3000.</p>
-            </div>
-            <div x-show="tab === 'deploy'" x-cloak x-transition class="text-ink-muted">
-                <p>Push to GitHub → GitHub Actions builds Docker → deploys to GCP Cloud Run in Mumbai (asia-south1).</p>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section class="py-20 bg-surface-muted">
-    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid grid-cols-2 gap-8 md:grid-cols-4">
-            {% partial 'components/stat' value='4' label='Pages' %}
-            {% partial 'components/stat' value='5' label='Components' %}
-            {% partial 'components/stat' value='3' label='Layouts' %}
-            {% partial 'components/stat' value='1' label='CI/CD Pipeline' %}
+<section class="py-32 bg-surface-sand">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-3xl text-center">
+        <p class="eyebrow mb-4 reveal">The promise</p>
+        <h2 class="font-display text-3xl font-medium text-ink sm:text-4xl lg:text-5xl leading-tight reveal reveal-delay-1">
+            You bring the vision.<br>
+            <span class="text-clay">We build the experience people remember.</span>
+        </h2>
+        <p class="mt-6 text-lg text-ink-muted font-body reveal reveal-delay-2">
+            From idea to launch-ready product — Valnee Solutions delivers premium software
+            that makes your competitors look like they&apos;re still loading.
+        </p>
+        <div class="mt-10 reveal reveal-delay-3">
+            {% partial 'components/button' label='Start your premium build →' href='/contact' variant='primary' %}
         </div>
     </div>
 </section>

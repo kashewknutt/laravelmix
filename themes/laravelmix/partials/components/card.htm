@@ -1,19 +1,13 @@
-{#
-  Usage: {% partial 'components/card' title='Title' body='Description' icon='⚡' %}
-#}
-<div class="p-6 bg-surface rounded-xl border border-surface-subtle shadow-soft card-lift {{ class|default('') }}">
+<div class="p-7 rounded-2xl bg-surface border border-ink/5 shadow-card card-lift {{ class|default('') }}">
     {% if icon is defined %}
-        <div class="flex items-center justify-center w-10 h-10 mb-4 text-lg rounded-lg bg-accent-light text-accent">
+        <div class="flex items-center justify-center w-11 h-11 mb-5 text-lg rounded-xl bg-clay-soft text-clay">
             {{ icon }}
         </div>
     {% endif %}
     {% if title is defined %}
-        <h3 class="text-lg font-semibold text-ink">{{ title }}</h3>
+        <h3 class="font-display text-xl font-medium text-ink">{{ title }}</h3>
     {% endif %}
     {% if body is defined %}
-        <p class="mt-2 text-sm text-ink-muted leading-relaxed">{{ body }}</p>
-    {% endif %}
-    {% if slot is defined %}
-        <div class="mt-4">{{ slot|raw }}</div>
+        <p class="mt-2 text-sm text-ink-muted leading-relaxed font-body">{{ body }}</p>
     {% endif %}
 </div>
