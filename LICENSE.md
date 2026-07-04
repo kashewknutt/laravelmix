@@ -290,11 +290,9 @@ You hereby consent to receive all notices and communication from the Company ele
 
 All notices to the Company under this EULA shall be sent to:
 
-PO Box 47<br />
-Queanbeyan NSW 2620<br />
-Australia
+rajat@valnee.com
 
-For any other questions relating to this EULA, please contact us at https://octobercms.com/contact
+For any other questions relating to this EULA, please contact us at https://valnee.com/contact
 
 ### 18.4 Governing Law and Jurisdiction
 
